@@ -1,0 +1,76 @@
+name: Update schemas
+
+on:
+  repository_dispatch:
+    types: [schema-update]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Schemata release tag (e.g. v0.2.5)'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve tag
+        id: tag
+        run: |
+          TAG="${{ github.event.client_payload.tag || github.event.inputs.tag }}"
+          if [ -z "$TAG" ]; then
+            TAG=$(curl -sI https://github.com/nostrability/schemata/releases/latest | grep -i '^location:' | sed 's|.*/||' | tr -d '\r\n')
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Download and regenerate schemas
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          curl -sL "https://github.com/nostrability/schemata/releases/download/${TAG}/schemata-${TAG}.zip" -o /tmp/schemata.zip
+          unzip -qo /tmp/schemata.zip -d /tmp/schemata-dist
+
+          # Extract registry mapping from bundle
+          grep -oP "export \{ default as (\w+) \} from '([^']+)'" /tmp/schemata-dist/bundle/schemas.js | \
+            sed "s/export { default as //" | sed "s/ } from '/\t/" | sed "s/'//" > /tmp/registry.tsv
+
+          # Generate schemas_data.dart
+          python3 -c "
+          import json, os
+          tsv = open('/tmp/registry.tsv').readlines()
+          entries = []
+          for line in tsv:
+              parts = line.strip().split('\t')
+              if len(parts) == 2:
+                  key, path = parts
+                  path = path.lstrip('.').lstrip('/')
+                  full = os.path.join('/tmp/schemata-dist', path)
+                  if os.path.exists(full):
+                      with open(full) as f:
+                          content = f.read().strip()
+                      entries.append((key, content))
+          with open('lib/src/schemas_data.dart', 'w') as f:
+              f.write('// Generated from nostrability/schemata ${TAG} -- do not edit manually.\n')
+              f.write(\"const Map<String, String> schemasData = {\n\")
+              for key, data in entries:
+                  f.write(f\"  '{key}': r'''{data}''',\n\")
+              f.write('};\n')
+          print(f'Generated {len(entries)} entries')
+          "
+          echo "$TAG" > SCHEMATA_VERSION
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update schemas to ${{ steps.tag.outputs.tag }}"
+            git push
+          fi
