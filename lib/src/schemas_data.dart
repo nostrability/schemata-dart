@@ -1,6 +1,6 @@
 // Generated from nostrability/schemata v0.2.5 — do not edit manually.
 const Map<String, String> schemasData = {
-  'kind0ContentSchema': '{
+  'kind0ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Metadata Event Schema",
   "type": "object",
@@ -18,7 +18,7 @@ const Map<String, String> schemasData = {
     },
     "display_name": {
       "type": "string",
-      "description": "An alternative, richer name. \'name\' must always be set."
+      "description": "An alternative, richer name. 'name' must always be set."
     },
     "website": {
       "type": "string",
@@ -43,16 +43,16 @@ const Map<String, String> schemasData = {
     },
     "displayName": {
       "deprecated": true,
-      "description": "Use \'display_name\' instead.",
+      "description": "Use 'display_name' instead.",
       "errorMessage": {
-        "deprecated": "Use \'display_name\' instead."
+        "deprecated": "Use 'display_name' instead."
       }
     },
     "username": {
       "deprecated": true,
-      "description": "Use \'name\' instead.",
+      "description": "Use 'name' instead.",
       "errorMessage": {
-        "deprecated": "Use \'display_name\' instead."
+        "deprecated": "Use 'display_name' instead."
       }
     }
   },
@@ -60,8 +60,8 @@ const Map<String, String> schemasData = {
     "name"
   ],
   "additionalProperties": true
-}',
-  'kind0Schema': '{
+}''',
+  'kind0Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind0",
   "allOf": [
@@ -112,7 +112,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -162,8 +162,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/0.json"
-}',
-  'kind1Schema': '{
+}''',
+  'kind1Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1",
   "allOf": [
@@ -214,7 +214,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -264,8 +264,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1.json"
-}',
-  'clientCloseSchema': '{
+}''',
+  'clientCloseSchema': r'''{
   "type": "array",
   "items": [
     {
@@ -282,8 +282,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/CLOSE.json"
-}',
-  'clientEventSchema': '{
+}''',
+  'clientEventSchema': r'''{
   "type": "array",
   "title": "Client Event Message",
   "description": "A message for publishing a NIP-01 note to a relay",
@@ -340,7 +340,7 @@ const Map<String, String> schemasData = {
                     }
                   ],
                   "errorMessage": "pubkey must be a secp256k1 public key",
-                  "description": "The public key of the note\'s author"
+                  "description": "The public key of the note's author"
                 },
                 "sig": {
                   "type": "string",
@@ -386,8 +386,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/EVENT.json"
-}',
-  'clientReqSchema': '{
+}''',
+  'clientReqSchema': r'''{
   "type": "array",
   "items": [
     {
@@ -518,8 +518,8 @@ const Map<String, String> schemasData = {
     ]
   },
   "$id": "https://nostrability.github.io/schemata/message/REQ.json"
-}',
-  'filterSchema': '{
+}''',
+  'filterSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
@@ -574,8 +574,8 @@ const Map<String, String> schemasData = {
   },
   "additionalProperties": false,
   "$id": "https://nostrability.github.io/schemata/message/FILTER.json"
-}',
-  'relayClosedSchema': '{
+}''',
+  'relayClosedSchema': r'''{
   "type": "array",
   "items": [
     {
@@ -589,7 +589,7 @@ const Map<String, String> schemasData = {
     {
       "type": "string",
       "description": "A response message",
-      "errorMessage": "response message must be a string that follows the format: \'{code}: {message}\'",
+      "errorMessage": "response message must be a string that follows the format: '{code}: {message}'",
       "pattern": "^[a-zA-Z0-9_-]+: .+"
     }
   ],
@@ -597,8 +597,8 @@ const Map<String, String> schemasData = {
   "maxItems": 3,
   "additionalItems": false,
   "$id": "https://nostrability.github.io/schemata/message/CLOSED.json"
-}',
-  'relayEoseSchema': '{
+}''',
+  'relayEoseSchema': r'''{
   "type": "array",
   "description": "End Of Subscription Event",
   "items": [
@@ -613,8 +613,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/EOSE.json"
-}',
-  'relayEventSchema': '{
+}''',
+  'relayEventSchema': r'''{
   "type": "array",
   "description": "A message sent by relays to clients in response to a client request.",
   "items": [
@@ -672,7 +672,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -715,8 +715,8 @@ const Map<String, String> schemasData = {
   "minItems": 3,
   "maxItems": 3,
   "$id": "https://nostrability.github.io/schemata/message/nip-01_EVENT.json"
-}',
-  'relayNoticeSchema': '{
+}''',
+  'relayNoticeSchema': r'''{
   "type": "array",
   "description": "A message sent by relays to clients in response to a client request, usually to inform them of an issue.",
   "items": [
@@ -730,8 +730,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/NOTICE.json"
-}',
-  'relayOkSchema': '{
+}''',
+  'relayOkSchema': r'''{
   "type": "array",
   "items": [
     {
@@ -748,7 +748,7 @@ const Map<String, String> schemasData = {
     {
       "type": "string",
       "description": "A response message",
-      "errorMessage": "response message must be a string that follows the format: \'{code}: {message}\'",
+      "errorMessage": "response message must be a string that follows the format: '{code}: {message}'",
       "pattern": "^[a-zA-Z0-9_-]+: .+"
     }
   ],
@@ -756,8 +756,8 @@ const Map<String, String> schemasData = {
   "maxItems": 4,
   "additionalItems": false,
   "$id": "https://nostrability.github.io/schemata/message/OK.json"
-}',
-  'noteSchema': '{
+}''',
+  'noteSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "properties": {
@@ -802,7 +802,7 @@ const Map<String, String> schemasData = {
         }
       ],
       "errorMessage": "pubkey must be a secp256k1 public key",
-      "description": "The public key of the note\'s author"
+      "description": "The public key of the note's author"
     },
     "sig": {
       "type": "string",
@@ -838,8 +838,8 @@ const Map<String, String> schemasData = {
     "tags"
   ],
   "additionalProperties": false
-}',
-  'noteUnsignedSchema': '{
+}''',
+  'noteUnsignedSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "properties": {
@@ -884,7 +884,7 @@ const Map<String, String> schemasData = {
         }
       ],
       "errorMessage": "pubkey must be a secp256k1 public key",
-      "description": "The public key of the note\'s author"
+      "description": "The public key of the note's author"
     },
     "tags": {
       "type": "array",
@@ -911,13 +911,13 @@ const Map<String, String> schemasData = {
     "tags"
   ],
   "additionalProperties": false
-}',
-  'secp256k1Schema': '{
+}''',
+  'secp256k1Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "string",
   "pattern": "^[a-f0-9]{64}$"
-}',
-  'aTagSchema': '{
+}''',
+  'aTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -952,8 +952,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/a.json"
-}',
-  'dTagSchema': '{
+}''',
+  'dTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -983,8 +983,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/d.json"
-}',
-  'eTagSchema': '{
+}''',
+  'eTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -1065,8 +1065,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/e.json"
-}',
-  'pTagSchema': '{
+}''',
+  'pTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -1106,8 +1106,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/p.json"
-}',
-  'tagSchema': '{
+}''',
+  'tagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "array",
   "items": {
@@ -1115,8 +1115,8 @@ const Map<String, String> schemasData = {
   },
   "uniqueItems": false,
   "$id": "https://nostrability.github.io/schemata/tag/generic.json"
-}',
-  'tTagSchema': '{
+}''',
+  'tTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -1146,8 +1146,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/t.json"
-}',
-  'kind3ContentSchema': '{
+}''',
+  'kind3ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind3Content",
   "type": "object",
@@ -1170,8 +1170,8 @@ const Map<String, String> schemasData = {
     }
   },
   "additionalProperties": false
-}',
-  'kind3Schema': '{
+}''',
+  'kind3Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind3",
   "x-stringified": [
@@ -1225,7 +1225,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -1324,8 +1324,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/3.json"
-}',
-  'kind4Schema': '{
+}''',
+  'kind4Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind4",
   "description": "Encrypted Direct Message (NIP-04)",
@@ -1377,7 +1377,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -1425,7 +1425,7 @@ const Map<String, String> schemasData = {
         "content": {
           "type": "string",
           "pattern": "^[A-Za-z0-9+/]+={0,2}\\\\?iv=[A-Za-z0-9+/]+={0,2}$",
-          "errorMessage": "content must be \'<ciphertext>?iv=<initialization_vector>\' where both values are base64"
+          "errorMessage": "content must be '<ciphertext>?iv=<initialization_vector>' where both values are base64"
         },
         "tags": {
           "type": "array",
@@ -1535,15 +1535,15 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/4.json"
-}',
-  'identifierSchema': '{
+}''',
+  'identifierSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "nip05Identifier",
   "description": "Internet Identifier for NIP-05 (email-like, case-insensitive local-part)",
   "type": "string",
   "pattern": "^(([_A-Za-z0-9.-]+)|_)@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
-}',
-  'wellKnownSchema': '{
+}''',
+  'wellKnownSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "nostrWellKnown",
   "description": "Schema for `/.well-known/nostr.json` per NIP-05",
@@ -1589,8 +1589,8 @@ const Map<String, String> schemasData = {
     "names"
   ],
   "additionalProperties": false
-}',
-  'kind5Schema': '{
+}''',
+  'kind5Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind5",
   "description": "Event Deletion Request (NIP-09)",
@@ -1642,7 +1642,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -1734,8 +1734,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/5.json"
-}',
-  'nip11Schema': '{
+}''',
+  'nip11Schema': r'''{
   "$id": "https://nostrability.github.io/schemata/document/info",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NIP-11",
@@ -2155,8 +2155,8 @@ const Map<String, String> schemasData = {
       }
     }
   }
-}',
-  'kind10050Schema': '{
+}''',
+  'kind10050Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10050",
   "description": "Preferred DM relay list event defined by NIP-17",
@@ -2208,7 +2208,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -2349,8 +2349,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10050.json"
-}',
-  'kind14Schema': '{
+}''',
+  'kind14Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind14",
   "description": "Private direct message event defined by NIP-17",
@@ -2402,7 +2402,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "tags": {
               "type": "array",
@@ -2554,8 +2554,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/14.json"
-}',
-  'kind15Schema': '{
+}''',
+  'kind15Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind15",
   "description": "Encrypted file message event defined by NIP-17",
@@ -2607,7 +2607,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "tags": {
               "type": "array",
@@ -2967,8 +2967,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/15.json"
-}',
-  'blurhashTagSchema': '{
+}''',
+  'blurhashTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3000,8 +3000,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/blurhash.json"
-}',
-  'decryptionkeyTagSchema': '{
+}''',
+  'decryptionkeyTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3033,8 +3033,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/decryption-key.json"
-}',
-  'decryptionnonceTagSchema': '{
+}''',
+  'decryptionnonceTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3066,8 +3066,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/decryption-nonce.json"
-}',
-  'dimTagSchema': '{
+}''',
+  'dimTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3099,8 +3099,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/dim.json"
-}',
-  'encryptionalgorithmTagSchema': '{
+}''',
+  'encryptionalgorithmTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3134,8 +3134,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/encryption-algorithm.json"
-}',
-  'fallbackTagSchema': '{
+}''',
+  'fallbackTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3170,8 +3170,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/fallback.json"
-}',
-  'filetypeTagSchema': '{
+}''',
+  'filetypeTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3203,8 +3203,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/file-type.json"
-}',
-  'oxTagSchema': '{
+}''',
+  'oxTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3236,8 +3236,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/ox.json"
-}',
-  'relayTagSchema': '{
+}''',
+  'relayTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3290,8 +3290,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/relay.json"
-}',
-  'sizeTagSchema': '{
+}''',
+  'sizeTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3323,8 +3323,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/size.json"
-}',
-  'subjectTagSchema': '{
+}''',
+  'subjectTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3356,8 +3356,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/subject.json"
-}',
-  'thumbTagSchema': '{
+}''',
+  'thumbTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3389,8 +3389,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/thumb.json"
-}',
-  'xTagSchema': '{
+}''',
+  'xTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3422,8 +3422,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/x.json"
-}',
-  'kind16Schema': '{
+}''',
+  'kind16Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind16",
   "description": "Generic repost (NIP-18) for reposting events other than kind-1",
@@ -3475,7 +3475,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -3590,8 +3590,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/16.json"
-}',
-  'kind6Schema': '{
+}''',
+  'kind6Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind6",
   "description": "Repost of a kind-1 note (NIP-18)",
@@ -3643,7 +3643,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -3740,8 +3740,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/6.json"
-}',
-  'kTagSchema': '{
+}''',
+  'kTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3772,8 +3772,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/k.json"
-}',
-  'qTagSchema': '{
+}''',
+  'qTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3830,8 +3830,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/q.json"
-}',
-  'kind1111Schema': '{
+}''',
+  'kind1111Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1111",
   "allOf": [
@@ -3882,7 +3882,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -3923,8 +3923,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1111.json"
-}',
-  'ATagSchema': '{
+}''',
+  'ATagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -3968,8 +3968,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_A.json"
-}',
-  'ETagSchema': '{
+}''',
+  'ETagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -4059,8 +4059,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_E.json"
-}',
-  'KTagSchema': '{
+}''',
+  'KTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -4100,8 +4100,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_K.json"
-}',
-  'PTagSchema': '{
+}''',
+  'PTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -4150,8 +4150,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_P.json"
-}',
-  'kind30023Schema': '{
+}''',
+  'kind30023Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30023",
   "description": "Long-form Content (Article), NIP-23",
@@ -4203,7 +4203,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -4349,8 +4349,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30023.json"
-}',
-  'kind30024Schema': '{
+}''',
+  'kind30024Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30024",
   "description": "Long-form Content Draft, NIP-23",
@@ -4402,7 +4402,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -4512,8 +4512,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30024.json"
-}',
-  'publishedatTagSchema': '{
+}''',
+  'publishedatTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -4545,8 +4545,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/published_at.json"
-}',
-  'kind17Schema': '{
+}''',
+  'kind17Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind17",
   "description": "Reaction event referencing external content (NIP-25 + NIP-73)",
@@ -4598,7 +4598,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -4714,8 +4714,8 @@ const Map<String, String> schemasData = {
                             }
                           ],
                           "errorMessage": {
-                            "minItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]",
-                            "maxItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]"
+                            "minItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]",
+                            "maxItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]"
                           }
                         }
                       ]
@@ -4767,7 +4767,7 @@ const Map<String, String> schemasData = {
                           }
                         ],
                         "errorMessage": {
-                          "minItems": "k tag must be [\'k\', <type>, ...]"
+                          "minItems": "k tag must be ['k', <type>, ...]"
                         }
                       }
                     ]
@@ -4818,7 +4818,7 @@ const Map<String, String> schemasData = {
                           }
                         ],
                         "errorMessage": {
-                          "minItems": "i tag must be [\'i\', <identifier>, ...]"
+                          "minItems": "i tag must be ['i', <identifier>, ...]"
                         }
                       }
                     ]
@@ -4839,8 +4839,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/17.json"
-}',
-  'kind7Schema': '{
+}''',
+  'kind7Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind7",
   "description": "Reaction event referencing a nostr event (NIP-25)",
@@ -4892,7 +4892,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -4939,7 +4939,7 @@ const Map<String, String> schemasData = {
         },
         "content": {
           "type": "string",
-          "description": "Reaction marker such as \'+\', \'-\', an emoji, or a custom :shortcode:"
+          "description": "Reaction marker such as '+', '-', an emoji, or a custom :shortcode:"
         },
         "tags": {
           "type": "array",
@@ -5008,8 +5008,8 @@ const Map<String, String> schemasData = {
                             }
                           ],
                           "errorMessage": {
-                            "minItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]",
-                            "maxItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]"
+                            "minItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]",
+                            "maxItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]"
                           }
                         }
                       ]
@@ -5133,8 +5133,8 @@ const Map<String, String> schemasData = {
                             }
                           ],
                           "errorMessage": {
-                            "minItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]",
-                            "maxItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]"
+                            "minItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]",
+                            "maxItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]"
                           }
                         }
                       ]
@@ -5156,8 +5156,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/7.json"
-}',
-  'ereactTagSchema': '{
+}''',
+  'ereactTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "reactionETag",
   "description": "Event reference tag for reaction events (NIP-25)",
@@ -5213,8 +5213,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/e-react.json"
-}',
-  'emojiTagSchema': '{
+}''',
+  'emojiTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "emojiTag",
   "description": "Custom emoji resource reference for reactions (NIP-25 / NIP-30)",
@@ -5252,14 +5252,14 @@ const Map<String, String> schemasData = {
         }
       ],
       "errorMessage": {
-        "minItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]",
-        "maxItems": "emoji tag must contain [\'emoji\', <shortcode>, <https url>]"
+        "minItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]",
+        "maxItems": "emoji tag must contain ['emoji', <shortcode>, <https url>]"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/emoji.json"
-}',
-  'kind1985Schema': '{
+}''',
+  'kind1985Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1985",
   "description": "Labeling event as defined by NIP-32",
@@ -5311,7 +5311,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -5358,7 +5358,7 @@ const Map<String, String> schemasData = {
         },
         "tags": {
           "type": "array",
-          "description": "Must include at least one label (\'l\') and one target tag (e, p, a, r, or t).",
+          "description": "Must include at least one label ('l') and one target tag (e, p, a, r, or t).",
           "allOf": [
             {
               "contains": {
@@ -5380,7 +5380,7 @@ const Map<String, String> schemasData = {
                       },
                       {
                         "type": "array",
-                        "description": "Label tag (NIP-32). Second element is label value; optional third element \'mark\' matches an \'L\' tag in the same event.",
+                        "description": "Label tag (NIP-32). Second element is label value; optional third element 'mark' matches an 'L' tag in the same event.",
                         "minItems": 2,
                         "items": [
                           {
@@ -5394,7 +5394,7 @@ const Map<String, String> schemasData = {
                           {
                             "type": "string",
                             "title": "mark",
-                            "description": "Optional namespace mark; SHOULD match an \'L\' tag value in the same event if present."
+                            "description": "Optional namespace mark; SHOULD match an 'L' tag value in the same event if present."
                           }
                         ],
                         "additionalItems": false
@@ -5652,8 +5652,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1985.json"
-}',
-  'LTagSchema': '{
+}''',
+  'LTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -5670,7 +5670,7 @@ const Map<String, String> schemasData = {
     },
     {
       "type": "array",
-      "description": "Label namespace tag (NIP-32). Second element is namespace or \'#<target-tag>\' marker.",
+      "description": "Label namespace tag (NIP-32). Second element is namespace or '#<target-tag>' marker.",
       "minItems": 2,
       "items": [
         {
@@ -5679,15 +5679,15 @@ const Map<String, String> schemasData = {
         {
           "type": "string",
           "title": "namespace",
-          "description": "A namespace identifier; may start with \'#\' to indicate label applies to the value of the target tag."
+          "description": "A namespace identifier; may start with '#' to indicate label applies to the value of the target tag."
         }
       ],
       "additionalItems": false
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/L.json"
-}',
-  'lTagSchema': '{
+}''',
+  'lTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -5704,7 +5704,7 @@ const Map<String, String> schemasData = {
     },
     {
       "type": "array",
-      "description": "Label tag (NIP-32). Second element is label value; optional third element \'mark\' matches an \'L\' tag in the same event.",
+      "description": "Label tag (NIP-32). Second element is label value; optional third element 'mark' matches an 'L' tag in the same event.",
       "minItems": 2,
       "items": [
         {
@@ -5718,15 +5718,15 @@ const Map<String, String> schemasData = {
         {
           "type": "string",
           "title": "mark",
-          "description": "Optional namespace mark; SHOULD match an \'L\' tag value in the same event if present."
+          "description": "Optional namespace mark; SHOULD match an 'L' tag value in the same event if present."
         }
       ],
       "additionalItems": false
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/l.json"
-}',
-  'kind1617Schema': '{
+}''',
+  'kind1617Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1617",
   "description": "NIP-34 patch event (git format-patch payload)",
@@ -5778,7 +5778,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -6119,8 +6119,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1617.json"
-}',
-  'kind1621Schema': '{
+}''',
+  'kind1621Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1621",
   "description": "NIP-34 issue event (markdown discussion thread)",
@@ -6172,7 +6172,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -6343,8 +6343,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1621.json"
-}',
-  'kind1630Schema': '{
+}''',
+  'kind1630Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1630",
   "description": "NIP-34 status event indicating Open state",
@@ -6396,7 +6396,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -6700,8 +6700,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1630.json"
-}',
-  'kind1631Schema': '{
+}''',
+  'kind1631Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1631",
   "description": "NIP-34 status event indicating Applied / Merged / Resolved state",
@@ -6753,7 +6753,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -7107,8 +7107,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1631.json"
-}',
-  'kind1632Schema': '{
+}''',
+  'kind1632Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1632",
   "description": "NIP-34 status event indicating Closed state",
@@ -7160,7 +7160,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -7464,8 +7464,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1632.json"
-}',
-  'kind1633Schema': '{
+}''',
+  'kind1633Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1633",
   "description": "NIP-34 status event indicating Draft state",
@@ -7517,7 +7517,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -7821,8 +7821,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1633.json"
-}',
-  'kind30617Schema': '{
+}''',
+  'kind30617Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30617",
   "description": "NIP-34 repository announcement event",
@@ -7874,7 +7874,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -8345,8 +8345,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30617.json"
-}',
-  'kind30618Schema': '{
+}''',
+  'kind30618Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30618",
   "description": "NIP-34 repository state announcement event",
@@ -8398,7 +8398,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -8617,8 +8617,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30618.json"
-}',
-  'appliedascommitsTagSchema': '{
+}''',
+  'appliedascommitsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8652,8 +8652,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/applied-as-commits.json"
-}',
-  'cloneTagSchema': '{
+}''',
+  'cloneTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8688,8 +8688,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/clone.json"
-}',
-  'commitTagSchema': '{
+}''',
+  'commitTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8721,8 +8721,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/commit.json"
-}',
-  'commitpgpsigTagSchema': '{
+}''',
+  'commitpgpsigTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8762,8 +8762,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/commit-pgp-sig.json"
-}',
-  'committerTagSchema': '{
+}''',
+  'committerTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8807,8 +8807,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/committer.json"
-}',
-  'erootTagSchema': '{
+}''',
+  'erootTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8856,8 +8856,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/e-root.json"
-}',
-  'estatusreplyTagSchema': '{
+}''',
+  'estatusreplyTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8905,8 +8905,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/e-status-reply.json"
-}',
-  'headTagSchema': '{
+}''',
+  'headTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8939,8 +8939,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/head.json"
-}',
-  'maintainersTagSchema': '{
+}''',
+  'maintainersTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -8975,8 +8975,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/maintainers.json"
-}',
-  'mergecommitTagSchema': '{
+}''',
+  'mergecommitTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9008,8 +9008,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/merge-commit.json"
-}',
-  'nameTagSchema': '{
+}''',
+  'nameTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9041,8 +9041,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/name.json"
-}',
-  'parentcommitTagSchema': '{
+}''',
+  'parentcommitTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9074,8 +9074,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/parent-commit.json"
-}',
-  'reucTagSchema': '{
+}''',
+  'reucTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9111,8 +9111,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/r-euc.json"
-}',
-  'refTagSchema': '{
+}''',
+  'refTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9151,8 +9151,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/ref.json"
-}',
-  'webTagSchema': '{
+}''',
+  'webTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9187,8 +9187,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/web.json"
-}',
-  'contentwarningTagSchema': '{
+}''',
+  'contentwarningTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9221,8 +9221,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/content-warning.json"
-}',
-  'kind30315Schema': '{
+}''',
+  'kind30315Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30315",
   "description": "User Status event (addressable, NIP-38)",
@@ -9274,7 +9274,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -9424,8 +9424,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30315.json"
-}',
-  'expirationTagSchema': '{
+}''',
+  'expirationTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9457,8 +9457,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/expiration.json"
-}',
-  'statustypeTagSchema': '{
+}''',
+  'statustypeTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -9489,8 +9489,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/status-type.json"
-}',
-  'clientAuthSchema': '{
+}''',
+  'clientAuthSchema': r'''{
   "type": "array",
   "title": "Client Authentication Message",
   "description": "Client-sent AUTH message containing a signed NIP-42 authentication event",
@@ -9552,7 +9552,7 @@ const Map<String, String> schemasData = {
                         }
                       ],
                       "errorMessage": "pubkey must be a secp256k1 public key",
-                      "description": "The public key of the note\'s author"
+                      "description": "The public key of the note's author"
                     },
                     "sig": {
                       "type": "string",
@@ -9728,8 +9728,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/AUTH.json"
-}',
-  'relayAuthSchema': '{
+}''',
+  'relayAuthSchema': r'''{
   "type": "array",
   "title": "Relay Authentication Challenge",
   "description": "Relay-initiated AUTH message carrying the challenge the client must sign",
@@ -9746,8 +9746,8 @@ const Map<String, String> schemasData = {
   "minItems": 2,
   "maxItems": 2,
   "$id": "https://nostrability.github.io/schemata/message/nip-40_AUTH.json"
-}',
-  'kind22242Schema': '{
+}''',
+  'kind22242Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind22242",
   "description": "Ephemeral authentication event defined by NIP-42",
@@ -9799,7 +9799,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -9969,8 +9969,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/22242.json"
-}',
-  'challengeTagSchema': '{
+}''',
+  'challengeTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -10006,8 +10006,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/challenge.json"
-}',
-  'kind31922Schema': '{
+}''',
+  'kind31922Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31922",
   "allOf": [
@@ -10058,7 +10058,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -10685,8 +10685,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31922.json"
-}',
-  'kind31923Schema': '{
+}''',
+  'kind31923Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31923",
   "allOf": [
@@ -10737,7 +10737,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -11482,8 +11482,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31923.json"
-}',
-  'kind31924Schema': '{
+}''',
+  'kind31924Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31924",
   "allOf": [
@@ -11534,7 +11534,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -11831,8 +11831,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31924.json"
-}',
-  'kind31925Schema': '{
+}''',
+  'kind31925Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31925",
   "allOf": [
@@ -11883,7 +11883,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -12323,8 +12323,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31925.json"
-}',
-  'endtzidTagSchema': '{
+}''',
+  'endtzidTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12356,8 +12356,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/end_tzid.json"
-}',
-  'fbTagSchema': '{
+}''',
+  'fbTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12391,8 +12391,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/fb.json"
-}',
-  'gTagSchema': '{
+}''',
+  'gTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12424,8 +12424,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/g.json"
-}',
-  'locationTagSchema': '{
+}''',
+  'locationTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12456,8 +12456,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/location.json"
-}',
-  'starttzidTagSchema': '{
+}''',
+  'starttzidTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12489,8 +12489,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/start_tzid.json"
-}',
-  'statusTagSchema': '{
+}''',
+  'statusTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -12525,8 +12525,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/status.json"
-}',
-  'kind10312Schema': '{
+}''',
+  'kind10312Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10312",
   "description": "Room Presence Event (replaceable, NIP-53)",
@@ -12578,7 +12578,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -12689,8 +12689,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10312.json"
-}',
-  'kind1311Schema': '{
+}''',
+  'kind1311Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1311",
   "description": "Live Chat Message for Live Activities (NIP-53)",
@@ -12742,7 +12742,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -12853,8 +12853,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1311.json"
-}',
-  'kind30311Schema': '{
+}''',
+  'kind30311Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30311",
   "description": "Live Streaming Event (addressable, NIP-53)",
@@ -12906,7 +12906,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -13012,8 +13012,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30311.json"
-}',
-  'kind30312Schema': '{
+}''',
+  'kind30312Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30312",
   "description": "Meeting Space Event (Space Host, NIP-53)",
@@ -13065,7 +13065,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -13335,8 +13335,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30312.json"
-}',
-  'kind30313Schema': '{
+}''',
+  'kind30313Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30313",
   "description": "Meeting Room Event (Scheduled/Ongoing meeting, NIP-53)",
@@ -13388,7 +13388,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -13653,8 +13653,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30313.json"
-}',
-  'aliveTagSchema': '{
+}''',
+  'aliveTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13689,8 +13689,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/a-live.json"
-}',
-  'aroomTagSchema': '{
+}''',
+  'aroomTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13725,8 +13725,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/a-room.json"
-}',
-  'currentparticipantsTagSchema': '{
+}''',
+  'currentparticipantsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13757,8 +13757,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/current_participants.json"
-}',
-  'endpointTagSchema': '{
+}''',
+  'endpointTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13789,8 +13789,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/endpoint.json"
-}',
-  'endsTagSchema': '{
+}''',
+  'endsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13821,8 +13821,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/ends.json"
-}',
-  'handTagSchema': '{
+}''',
+  'handTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13855,8 +13855,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/hand.json"
-}',
-  'imageTagSchema': '{
+}''',
+  'imageTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13887,8 +13887,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/image.json"
-}',
-  'pinnedTagSchema': '{
+}''',
+  'pinnedTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13919,8 +13919,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/pinned.json"
-}',
-  'recordingTagSchema': '{
+}''',
+  'recordingTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13951,8 +13951,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/recording.json"
-}',
-  'relaysTagSchema': '{
+}''',
+  'relaysTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -13983,8 +13983,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/relays.json"
-}',
-  'roomTagSchema': '{
+}''',
+  'roomTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14014,8 +14014,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/room.json"
-}',
-  'serviceTagSchema': '{
+}''',
+  'serviceTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14046,8 +14046,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/service.json"
-}',
-  'startsTagSchema': '{
+}''',
+  'startsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14078,8 +14078,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/starts.json"
-}',
-  'statusliveTagSchema': '{
+}''',
+  'statusliveTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14114,8 +14114,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/status-live.json"
-}',
-  'statusroomTagSchema': '{
+}''',
+  'statusroomTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14150,8 +14150,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/status-room.json"
-}',
-  'streamingTagSchema': '{
+}''',
+  'streamingTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14182,8 +14182,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/streaming.json"
-}',
-  'summaryTagSchema': '{
+}''',
+  'summaryTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14213,8 +14213,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/summary.json"
-}',
-  'titleTagSchema': '{
+}''',
+  'titleTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14244,8 +14244,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/title.json"
-}',
-  'totalparticipantsTagSchema': '{
+}''',
+  'totalparticipantsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14276,8 +14276,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/total_participants.json"
-}',
-  'kind1984Schema': '{
+}''',
+  'kind1984Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1984",
   "allOf": [
@@ -14328,7 +14328,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -14582,8 +14582,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1984.json"
-}',
-  'serverTagSchema': '{
+}''',
+  'serverTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -14614,8 +14614,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/server.json"
-}',
-  'kind9734Schema': '{
+}''',
+  'kind9734Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind9734",
   "description": "NIP-57 Zap Request event",
@@ -14667,7 +14667,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -14826,8 +14826,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/9734.json"
-}',
-  'kind9735Schema': '{
+}''',
+  'kind9735Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind9735",
   "description": "NIP-57 Zap Receipt event",
@@ -14879,7 +14879,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -15079,8 +15079,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/9735.json"
-}',
-  'amountTagSchema': '{
+}''',
+  'amountTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -15112,8 +15112,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/amount.json"
-}',
-  'bolt11TagSchema': '{
+}''',
+  'bolt11TagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -15145,8 +15145,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/bolt11.json"
-}',
-  'descriptionTagSchema': '{
+}''',
+  'descriptionTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -15177,8 +15177,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/description.json"
-}',
-  'lnurlTagSchema': '{
+}''',
+  'lnurlTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -15203,15 +15203,15 @@ const Map<String, String> schemasData = {
         {
           "type": "string",
           "pattern": "^lnurl1[02-9ac-hj-np-z]+$",
-          "description": "Bech32-encoded lnurl with \'lnurl1\' prefix (bech32 character set, excludes 1, b, i, o)"
+          "description": "Bech32-encoded lnurl with 'lnurl1' prefix (bech32 character set, excludes 1, b, i, o)"
         }
       ],
       "additionalItems": false
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/lnurl.json"
-}',
-  'preimageTagSchema': '{
+}''',
+  'preimageTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -15243,8 +15243,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/preimage.json"
-}',
-  'kind1059Schema': '{
+}''',
+  'kind1059Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1059",
   "description": "Gift wrap event containing encrypted seal (NIP-59)",
@@ -15296,7 +15296,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -15354,7 +15354,7 @@ const Map<String, String> schemasData = {
               ]
             }
           ],
-          "description": "Ephemeral public key (not the sender\'s real pubkey)"
+          "description": "Ephemeral public key (not the sender's real pubkey)"
         },
         "content": {
           "type": "string",
@@ -15435,8 +15435,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1059.json"
-}',
-  'kind13Schema': '{
+}''',
+  'kind13Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind13",
   "description": "Seal event containing encrypted rumor (NIP-59)",
@@ -15488,7 +15488,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -15552,8 +15552,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/13.json"
-}',
-  'kind10019Schema': '{
+}''',
+  'kind10019Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10019",
   "allOf": [
@@ -15604,7 +15604,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -15788,8 +15788,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10019.json"
-}',
-  'kind7376Schema': '{
+}''',
+  'kind7376Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind7376",
   "allOf": [
@@ -15840,7 +15840,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -16005,8 +16005,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/7376.json"
-}',
-  'kind9321Schema': '{
+}''',
+  'kind9321Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind9321",
   "allOf": [
@@ -16057,7 +16057,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -16245,8 +16245,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/9321.json"
-}',
-  'eredeemedTagSchema': '{
+}''',
+  'eredeemedTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16290,8 +16290,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/e-redeemed.json"
-}',
-  'mintTagSchema': '{
+}''',
+  'mintTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16326,8 +16326,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/mint.json"
-}',
-  'proofTagSchema': '{
+}''',
+  'proofTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16357,8 +16357,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/proof.json"
-}',
-  'pubkeyTagSchema': '{
+}''',
+  'pubkeyTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16389,8 +16389,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/pubkey.json"
-}',
-  'uTagSchema': '{
+}''',
+  'uTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16421,8 +16421,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/u.json"
-}',
-  'kind10002Schema': '{
+}''',
+  'kind10002Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10002",
   "allOf": [
@@ -16473,7 +16473,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -16565,8 +16565,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10002.json"
-}',
-  'rTagSchema': '{
+}''',
+  'rTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -16596,8 +16596,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/r.json"
-}',
-  'kind20Schema': '{
+}''',
+  'kind20Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind20",
   "description": "Picture-first event defined by NIP-68",
@@ -16649,7 +16649,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -16921,8 +16921,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/20.json"
-}',
-  'imetaTagSchema': '{
+}''',
+  'imetaTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "imeta tag",
   "description": "NIP-68 metadata describing an image attachment",
@@ -17098,8 +17098,8 @@ const Map<String, String> schemasData = {
     }
   },
   "$id": "https://nostrability.github.io/schemata/tag/imeta.json"
-}',
-  'iTagSchema': '{
+}''',
+  'iTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "externalContentIdentifierTag",
   "description": "External content identifier tag (NIP-73)",
@@ -17136,13 +17136,13 @@ const Map<String, String> schemasData = {
         }
       ],
       "errorMessage": {
-        "minItems": "i tag must be [\'i\', <identifier>, ...]"
+        "minItems": "i tag must be ['i', <identifier>, ...]"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/i.json"
-}',
-  'kind30078Schema': '{
+}''',
+  'kind30078Schema': r'''{
   "$schema": "https://json-schema.org/draft-07/schema#",
   "title": "kind30078",
   "description": "NIP-78 Arbitrary custom app data (draft)",
@@ -17194,7 +17194,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -17304,8 +17304,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30078.json"
-}',
-  'kind9802Schema': '{
+}''',
+  'kind9802Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind9802",
   "description": "NIP-84 Highlight event",
@@ -17357,7 +17357,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -17411,8 +17411,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/9802.json"
-}',
-  'commentTagSchema': '{
+}''',
+  'commentTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -17443,8 +17443,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/comment.json"
-}',
-  'contextTagSchema': '{
+}''',
+  'contextTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -17475,8 +17475,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/context.json"
-}',
-  'kind1018Schema': '{
+}''',
+  'kind1018Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1018",
   "allOf": [
@@ -17527,7 +17527,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -17606,7 +17606,7 @@ const Map<String, String> schemasData = {
                     ],
                     "additionalItems": true,
                     "errorMessage": {
-                      "items": "response tag must be [\'response\', \'<alphanumeric option id>\']"
+                      "items": "response tag must be ['response', '<alphanumeric option id>']"
                     }
                   }
                 ]
@@ -17746,7 +17746,7 @@ const Map<String, String> schemasData = {
                           ],
                           "additionalItems": true,
                           "errorMessage": {
-                            "items": "response tag must be [\'response\', \'<alphanumeric option id>\']"
+                            "items": "response tag must be ['response', '<alphanumeric option id>']"
                           }
                         }
                       ]
@@ -17862,8 +17862,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1018.json"
-}',
-  'kind1068Schema': '{
+}''',
+  'kind1068Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1068",
   "allOf": [
@@ -17914,7 +17914,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -17998,7 +17998,7 @@ const Map<String, String> schemasData = {
                     "additionalItems": true,
                     "errorMessage": {
                       "minItems": "option tag must provide an identifier and label",
-                      "items": "option tag must start with \'option\', followed by an alphanumeric id and a non-empty label"
+                      "items": "option tag must start with 'option', followed by an alphanumeric id and a non-empty label"
                     }
                   }
                 ]
@@ -18093,7 +18093,7 @@ const Map<String, String> schemasData = {
                           "additionalItems": true,
                           "errorMessage": {
                             "minItems": "option tag must provide an identifier and label",
-                            "items": "option tag must start with \'option\', followed by an alphanumeric id and a non-empty label"
+                            "items": "option tag must start with 'option', followed by an alphanumeric id and a non-empty label"
                           }
                         }
                       ]
@@ -18187,7 +18187,7 @@ const Map<String, String> schemasData = {
                           ],
                           "additionalItems": false,
                           "errorMessage": {
-                            "items": "polltype tag must be [\'polltype\', \'singlechoice\'|\'multiplechoice\']"
+                            "items": "polltype tag must be ['polltype', 'singlechoice'|'multiplechoice']"
                           }
                         }
                       ]
@@ -18234,7 +18234,7 @@ const Map<String, String> schemasData = {
                           ],
                           "additionalItems": true,
                           "errorMessage": {
-                            "items": "endsAt tag must start with \'endsAt\' followed by a unix timestamp in seconds"
+                            "items": "endsAt tag must start with 'endsAt' followed by a unix timestamp in seconds"
                           }
                         }
                       ]
@@ -18256,8 +18256,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1068.json"
-}',
-  'endsAtTagSchema': '{
+}''',
+  'endsAtTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -18286,13 +18286,13 @@ const Map<String, String> schemasData = {
       ],
       "additionalItems": true,
       "errorMessage": {
-        "items": "endsAt tag must start with \'endsAt\' followed by a unix timestamp in seconds"
+        "items": "endsAt tag must start with 'endsAt' followed by a unix timestamp in seconds"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/endsAt.json"
-}',
-  'optionTagSchema': '{
+}''',
+  'optionTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -18326,13 +18326,13 @@ const Map<String, String> schemasData = {
       "additionalItems": true,
       "errorMessage": {
         "minItems": "option tag must provide an identifier and label",
-        "items": "option tag must start with \'option\', followed by an alphanumeric id and a non-empty label"
+        "items": "option tag must start with 'option', followed by an alphanumeric id and a non-empty label"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/option.json"
-}',
-  'polltypeTagSchema': '{
+}''',
+  'polltypeTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -18364,13 +18364,13 @@ const Map<String, String> schemasData = {
       ],
       "additionalItems": false,
       "errorMessage": {
-        "items": "polltype tag must be [\'polltype\', \'singlechoice\'|\'multiplechoice\']"
+        "items": "polltype tag must be ['polltype', 'singlechoice'|'multiplechoice']"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/polltype.json"
-}',
-  'responseTagSchema': '{
+}''',
+  'responseTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -18399,13 +18399,13 @@ const Map<String, String> schemasData = {
       ],
       "additionalItems": true,
       "errorMessage": {
-        "items": "response tag must be [\'response\', \'<alphanumeric option id>\']"
+        "items": "response tag must be ['response', '<alphanumeric option id>']"
       }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/response.json"
-}',
-  'kind31989Schema': '{
+}''',
+  'kind31989Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31989",
   "allOf": [
@@ -18456,7 +18456,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -18594,8 +18594,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31989.json"
-}',
-  'kind31990Schema': '{
+}''',
+  'kind31990Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind31990",
   "allOf": [
@@ -18646,7 +18646,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -18780,8 +18780,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/31990.json"
-}',
-  'clientTagSchema': '{
+}''',
+  'clientTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -18823,8 +18823,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/client.json"
-}',
-  'kind30402Schema': '{
+}''',
+  'kind30402Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30402",
   "description": "Classified Listing (NIP-99). Addressable event describing a listing with structured metadata in tags.",
@@ -18876,7 +18876,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -19111,8 +19111,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30402.json"
-}',
-  'kind30403Schema': '{
+}''',
+  'kind30403Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30403",
   "description": "Draft/Inactive Classified Listing (NIP-99). Same structure as kind 30402.",
@@ -19164,7 +19164,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -19399,8 +19399,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/30403.json"
-}',
-  'kind10063Schema': '{
+}''',
+  'kind10063Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10063",
   "allOf": [
@@ -19451,7 +19451,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -19556,8 +19556,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10063.json"
-}',
-  'kind10051Schema': '{
+}''',
+  'kind10051Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind10051",
   "description": "Marmot KeyPackage relay list event (MIP-00)",
@@ -19609,7 +19609,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -19717,8 +19717,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10051.json"
-}',
-  'kind443Schema': '{
+}''',
+  'kind443Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind443",
   "description": "Marmot KeyPackage event (MIP-00)",
@@ -19770,7 +19770,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -20093,8 +20093,8 @@ const Map<String, String> schemasData = {
                         ],
                         "additionalItems": false,
                         "errorMessage": {
-                          "minItems": "i tag must have exactly two elements: [\'i\', <KeyPackageRef>]",
-                          "maxItems": "i tag must have exactly two elements: [\'i\', <KeyPackageRef>]"
+                          "minItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]",
+                          "maxItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]"
                         }
                       }
                     ]
@@ -20115,8 +20115,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/443.json"
-}',
-  'encodingTagSchema': '{
+}''',
+  'encodingTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Encoding",
   "allOf": [
@@ -20152,8 +20152,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/encoding.json"
-}',
-  'mlsciphersuiteTagSchema': '{
+}''',
+  'mlsciphersuiteTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MLS Ciphersuite",
   "allOf": [
@@ -20187,8 +20187,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/mls_ciphersuite.json"
-}',
-  'mlsextensionsTagSchema': '{
+}''',
+  'mlsextensionsTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MLS Extensions",
   "allOf": [
@@ -20243,8 +20243,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/mls_extensions.json"
-}',
-  'mlsprotocolversionTagSchema': '{
+}''',
+  'mlsprotocolversionTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -20277,8 +20277,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/mls_protocol_version.json"
-}',
-  'kind444Schema': '{
+}''',
+  'kind444Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind444",
   "description": "Marmot Welcome event — private group invitation delivered via NIP-59 gift-wrapping (MIP-02). This event is unsigned to prevent accidental public publishing.",
@@ -20330,7 +20330,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "tags": {
               "type": "array",
@@ -20605,8 +20605,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/444.json"
-}',
-  'kind445Schema': '{
+}''',
+  'kind445Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind445",
   "description": "Marmot Group Event — encrypted container for all group communication including MLS control messages (Proposals/Commits) and application messages (MIP-03). Each event uses a fresh ephemeral Nostr keypair for unlinkability.",
@@ -20658,7 +20658,7 @@ const Map<String, String> schemasData = {
                 }
               ],
               "errorMessage": "pubkey must be a secp256k1 public key",
-              "description": "The public key of the note\'s author"
+              "description": "The public key of the note's author"
             },
             "sig": {
               "type": "string",
@@ -20776,8 +20776,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/445.json"
-}',
-  'hTagSchema': '{
+}''',
+  'hTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
@@ -20810,8 +20810,8 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/h.json"
-}',
-  'messagefilterSchema': '{
+}''',
+  'messagefilterSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -20869,8 +20869,8 @@ const Map<String, String> schemasData = {
       "additionalProperties": false
     }
   ]
-}',
-  'nip05Schema': '{
+}''',
+  'nip05Schema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -20880,8 +20880,8 @@ const Map<String, String> schemasData = {
       "pattern": "^(([_A-Za-z0-9.-]+)|_)@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
     }
   ]
-}',
-  'nostrwellknownSchema': '{
+}''',
+  'nostrwellknownSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -20931,8 +20931,8 @@ const Map<String, String> schemasData = {
       "additionalProperties": false
     }
   ]
-}',
-  'notekind22242Schema': '{
+}''',
+  'notekind22242Schema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -20986,7 +20986,7 @@ const Map<String, String> schemasData = {
                     }
                   ],
                   "errorMessage": "pubkey must be a secp256k1 public key",
-                  "description": "The public key of the note\'s author"
+                  "description": "The public key of the note's author"
                 },
                 "sig": {
                   "type": "string",
@@ -21157,8 +21157,8 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
-  'noteunsignedSchema': '{
+}''',
+  'noteunsignedSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema",
@@ -21205,7 +21205,7 @@ const Map<String, String> schemasData = {
             }
           ],
           "errorMessage": "pubkey must be a secp256k1 public key",
-          "description": "The public key of the note\'s author"
+          "description": "The public key of the note's author"
         },
         "tags": {
           "type": "array",
@@ -21234,8 +21234,8 @@ const Map<String, String> schemasData = {
       "additionalProperties": false
     }
   ]
-}',
-  'authrelayTagSchema': '{
+}''',
+  'authrelayTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21283,8 +21283,8 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
-  'dmrelayTagSchema': '{
+}''',
+  'dmrelayTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21340,8 +21340,8 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
-  'externalcontentiTagSchema': '{
+}''',
+  'externalcontentiTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21380,14 +21380,14 @@ const Map<String, String> schemasData = {
             }
           ],
           "errorMessage": {
-            "minItems": "i tag must be [\'i\', <identifier>, ...]"
+            "minItems": "i tag must be ['i', <identifier>, ...]"
           }
         }
       ]
     }
   ]
-}',
-  'externalcontentkTagSchema': '{
+}''',
+  'externalcontentkTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21427,14 +21427,14 @@ const Map<String, String> schemasData = {
             }
           ],
           "errorMessage": {
-            "minItems": "k tag must be [\'k\', <type>, ...]"
+            "minItems": "k tag must be ['k', <type>, ...]"
           }
         }
       ]
     }
   ]
-}',
-  'gitrefTagSchema': '{
+}''',
+  'gitrefTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21476,8 +21476,8 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
-  'mip00iTagSchema': '{
+}''',
+  'mip00iTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21511,15 +21511,15 @@ const Map<String, String> schemasData = {
           ],
           "additionalItems": false,
           "errorMessage": {
-            "minItems": "i tag must have exactly two elements: [\'i\', <KeyPackageRef>]",
-            "maxItems": "i tag must have exactly two elements: [\'i\', <KeyPackageRef>]"
+            "minItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]",
+            "maxItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]"
           }
         }
       ]
     }
   ]
-}',
-  'mlsclientTagSchema': '{
+}''',
+  'mlsclientTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21556,8 +21556,8 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
-  'reactioneTagSchema': '{
+}''',
+  'reactioneTagSchema': r'''{
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -21616,5 +21616,5 @@ const Map<String, String> schemasData = {
       ]
     }
   ]
-}',
+}''',
 };
