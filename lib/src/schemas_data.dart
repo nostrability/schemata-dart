@@ -1,4 +1,4 @@
-// Generated from nostrability/schemata v0.3.0 -- do not edit manually.
+// Generated from nostrability/schemata v0.3.1 -- do not edit manually.
 const Map<String, String> schemasData = {
   'kind0ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -78,6 +78,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -180,6 +181,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -306,6 +308,7 @@ const Map<String, String> schemasData = {
                 },
                 "created_at": {
                   "type": "integer",
+                  "minimum": 0,
                   "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
                   "description": "The timestamp of the note creation"
                 },
@@ -638,6 +641,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -739,7 +743,9 @@ const Map<String, String> schemasData = {
     },
     {
       "type": "string",
-      "description": "The id of the subscription that the note is being sent in response to"
+      "description": "The event ID",
+      "pattern": "^[a-f0-9]{64}$",
+      "errorMessage": "must be a 64-character lowercase hex event ID"
     },
     {
       "type": "boolean",
@@ -747,9 +753,7 @@ const Map<String, String> schemasData = {
     },
     {
       "type": "string",
-      "description": "A response message",
-      "errorMessage": "response message must be a string that follows the format: '{code}: {message}'",
-      "pattern": "^[a-zA-Z0-9_-]+: .+"
+      "description": "A response message"
     }
   ],
   "minItems": 4,
@@ -768,6 +772,7 @@ const Map<String, String> schemasData = {
     },
     "created_at": {
       "type": "integer",
+      "minimum": 0,
       "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
       "description": "The timestamp of the note creation"
     },
@@ -912,6 +917,14 @@ const Map<String, String> schemasData = {
   ],
   "additionalProperties": false
 }''',
+  'relayUrlSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "relayUrl",
+  "type": "string",
+  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+}''',
   'secp256k1Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "string",
@@ -944,8 +957,16 @@ const Map<String, String> schemasData = {
           "pattern": "^\\d+:[a-f0-9]{64}:.+$"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ],
       "additionalItems": true
@@ -1016,8 +1037,16 @@ const Map<String, String> schemasData = {
         {
           "anyOf": [
             {
-              "type": "string",
-              "pattern": "^(ws://|wss://).+$"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             },
             {
               "type": "string",
@@ -1029,7 +1058,8 @@ const Map<String, String> schemasData = {
           "type": "string",
           "enum": [
             "reply",
-            "root"
+            "root",
+            "mention"
           ]
         },
         {
@@ -1057,8 +1087,16 @@ const Map<String, String> schemasData = {
           "pattern": "^[a-f0-9]{64}$"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ],
       "additionalItems": false
@@ -1094,6 +1132,27 @@ const Map<String, String> schemasData = {
               "$schema": "http://json-schema.org/draft-07/schema#",
               "type": "string",
               "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        },
+        {
+          "title": "recommended relay URL",
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "const": ""
             }
           ]
         },
@@ -1191,6 +1250,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -1272,12 +1332,92 @@ const Map<String, String> schemasData = {
           "items": {
             "allOf": [
               {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": "array",
-                "items": {
-                  "type": "string"
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": [
+                    {
+                      "const": "p"
+                    }
+                  ]
                 },
-                "uniqueItems": false
+                "then": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": [
+                            {
+                              "const": "p"
+                            },
+                            {
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "type": "string",
+                                  "pattern": "^[a-f0-9]{64}$"
+                                }
+                              ]
+                            },
+                            {
+                              "title": "recommended relay URL",
+                              "anyOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "const": ""
+                                }
+                              ]
+                            },
+                            {
+                              "title": "petname",
+                              "type": "string"
+                            }
+                          ],
+                          "additionalItems": false
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -1308,6 +1448,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -1447,8 +1588,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -1460,7 +1609,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -1488,8 +1638,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -1572,6 +1730,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -1708,6 +1867,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -1808,9 +1988,16 @@ const Map<String, String> schemasData = {
       "additionalProperties": {
         "type": "array",
         "items": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^wss?://"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       }
     }
@@ -1838,6 +2025,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -2404,6 +2592,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -2539,8 +2728,16 @@ const Map<String, String> schemasData = {
                                       "const": "relay"
                                     },
                                     {
-                                      "type": "string",
-                                      "pattern": "^(ws://|wss://).+$"
+                                      "allOf": [
+                                        {
+                                          "$schema": "http://json-schema.org/draft-07/schema#",
+                                          "title": "relayUrl",
+                                          "type": "string",
+                                          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                          "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                          "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                        }
+                                      ]
                                     }
                                   ],
                                   "additionalItems": false
@@ -2557,8 +2754,16 @@ const Map<String, String> schemasData = {
                               "const": "relay"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^wss?://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/.*)?$"
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "title": "relayUrl",
+                                  "type": "string",
+                                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                }
+                              ]
                             }
                           ]
                         }
@@ -2750,6 +2955,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -2957,6 +3183,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -3393,12 +3640,16 @@ const Map<String, String> schemasData = {
         },
         {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "pattern": "^https?://",
+          "errorMessage": "URL must start with http:// or https://"
         }
       ],
       "additionalItems": {
         "type": "string",
-        "format": "uri"
+        "format": "uri",
+        "pattern": "^https?://",
+        "errorMessage": "URL must start with http:// or https://"
       }
     }
   ],
@@ -3498,8 +3749,16 @@ const Map<String, String> schemasData = {
                   "const": "relay"
                 },
                 {
-                  "type": "string",
-                  "pattern": "^(ws://|wss://).+$"
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "relayUrl",
+                      "type": "string",
+                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                    }
+                  ]
                 }
               ],
               "additionalItems": false
@@ -3516,8 +3775,16 @@ const Map<String, String> schemasData = {
           "const": "relay"
         },
         {
-          "type": "string",
-          "pattern": "^wss?://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/.*)?$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ]
     }
@@ -3615,7 +3882,9 @@ const Map<String, String> schemasData = {
         },
         {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "pattern": "^https?://",
+          "errorMessage": "Thumbnail URL must start with http:// or https://"
         }
       ],
       "additionalItems": false
@@ -3674,6 +3943,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -3843,6 +4113,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -3956,8 +4227,16 @@ const Map<String, String> schemasData = {
                     "pattern": "^[a-f0-9]{64}$"
                   },
                   {
-                    "type": "string",
-                    "pattern": "^(ws://|wss://).+$"
+                    "allOf": [
+                      {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "title": "relayUrl",
+                        "type": "string",
+                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                      }
+                    ]
                   }
                 ]
               },
@@ -4047,9 +4326,21 @@ const Map<String, String> schemasData = {
           ]
         },
         {
-          "type": "string",
-          "description": "relay URL (ws or wss)",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
+            }
+          ],
+          "description": "relay URL (ws or wss)"
         },
         {
           "allOf": [
@@ -4065,6 +4356,46 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/q.json"
+}''',
+  'naddrSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "naddr",
+  "type": "string",
+  "pattern": "^naddr1[02-9ac-hj-np-z]+$",
+  "description": "NIP-19 bech32-encoded address (naddr, TLV-encoded)",
+  "errorMessage": "must be a valid naddr (bech32 string starting with naddr1)"
+}''',
+  'neventSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nevent",
+  "type": "string",
+  "pattern": "^nevent1[02-9ac-hj-np-z]+$",
+  "description": "NIP-19 bech32-encoded event (nevent, TLV-encoded)",
+  "errorMessage": "must be a valid nevent (bech32 string starting with nevent1)"
+}''',
+  'nostrUriSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nostrUri",
+  "type": "string",
+  "pattern": "^nostr:((npub|note)1[02-9ac-hj-np-z]{58}|(nprofile|nevent|naddr)1[02-9ac-hj-np-z]+)$",
+  "description": "NIP-27 nostr: URI scheme (nostr: prefix with bech32-encoded entity)",
+  "errorMessage": "must be a valid nostr: URI (nostr: followed by npub1/note1/nprofile1/nevent1/naddr1)"
+}''',
+  'nprofileSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nprofile",
+  "type": "string",
+  "pattern": "^nprofile1[02-9ac-hj-np-z]+$",
+  "description": "NIP-19 bech32-encoded profile (nprofile, TLV-encoded)",
+  "errorMessage": "must be a valid nprofile (bech32 string starting with nprofile1)"
+}''',
+  'npubSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "npub",
+  "type": "string",
+  "pattern": "^npub1[02-9ac-hj-np-z]{58}$",
+  "description": "NIP-19 bech32-encoded public key (npub)",
+  "errorMessage": "must be a valid npub (63-char bech32 string starting with npub1)"
 }''',
   'kind1111Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -4083,6 +4414,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -4191,8 +4523,16 @@ const Map<String, String> schemasData = {
                   "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                 },
                 {
-                  "type": "string",
-                  "pattern": "^(ws://|wss://).+$"
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "relayUrl",
+                      "type": "string",
+                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                    }
+                  ]
                 }
               ],
               "additionalItems": true
@@ -4241,8 +4581,16 @@ const Map<String, String> schemasData = {
                 {
                   "anyOf": [
                     {
-                      "type": "string",
-                      "pattern": "^(ws://|wss://).+$"
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "title": "relayUrl",
+                          "type": "string",
+                          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                          "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                          "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                        }
+                      ]
                     },
                     {
                       "type": "string",
@@ -4254,7 +4602,8 @@ const Map<String, String> schemasData = {
                   "type": "string",
                   "enum": [
                     "reply",
-                    "root"
+                    "root",
+                    "mention"
                   ]
                 },
                 {
@@ -4282,8 +4631,16 @@ const Map<String, String> schemasData = {
                   "pattern": "^[a-f0-9]{64}$"
                 },
                 {
-                  "type": "string",
-                  "pattern": "^(ws://|wss://).+$"
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "relayUrl",
+                      "type": "string",
+                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                    }
+                  ]
                 }
               ],
               "additionalItems": false
@@ -4373,6 +4730,27 @@ const Map<String, String> schemasData = {
                   ]
                 },
                 {
+                  "title": "recommended relay URL",
+                  "anyOf": [
+                    {
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "title": "relayUrl",
+                          "type": "string",
+                          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                          "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                          "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "const": ""
+                    }
+                  ]
+                },
+                {
                   "title": "petname",
                   "type": "string"
                 }
@@ -4404,6 +4782,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -4607,6 +4986,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -4804,6 +5184,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -5096,6 +5477,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -5292,8 +5674,16 @@ const Map<String, String> schemasData = {
                     "additionalItems": {
                       "anyOf": [
                         {
-                          "type": "string",
-                          "pattern": "^(ws://|wss://).+$"
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
                         },
                         {
                           "allOf": [
@@ -5431,8 +5821,16 @@ const Map<String, String> schemasData = {
       "additionalItems": {
         "anyOf": [
           {
-            "type": "string",
-            "pattern": "^(ws://|wss://).+$"
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "title": "relayUrl",
+                "type": "string",
+                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+              }
+            ]
           },
           {
             "allOf": [
@@ -5519,6 +5917,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -5626,6 +6025,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -5761,8 +6161,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -5774,7 +6182,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -5802,8 +6211,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -5845,6 +6262,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -5980,8 +6398,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -5993,7 +6419,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -6021,8 +6448,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -6064,6 +6499,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -6199,8 +6635,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -6212,7 +6656,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -6240,8 +6685,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -6283,6 +6736,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -6418,6 +6872,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -6461,6 +6936,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -6624,6 +7100,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -6787,6 +7264,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -6950,6 +7428,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -7113,6 +7592,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -7285,6 +7765,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -7327,6 +7828,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -7499,6 +8001,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -7541,6 +8064,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -7706,6 +8230,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -7878,8 +8403,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -7891,7 +8424,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -7919,8 +8453,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -7961,6 +8503,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -8126,6 +8669,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -8291,6 +8835,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -8496,6 +9041,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -8661,6 +9207,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -8858,6 +9405,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -9021,8 +9569,16 @@ const Map<String, String> schemasData = {
                               {
                                 "anyOf": [
                                   {
-                                    "type": "string",
-                                    "pattern": "^(ws://|wss://).+$"
+                                    "allOf": [
+                                      {
+                                        "$schema": "http://json-schema.org/draft-07/schema#",
+                                        "title": "relayUrl",
+                                        "type": "string",
+                                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                      }
+                                    ]
                                   },
                                   {
                                     "type": "string",
@@ -9034,7 +9590,8 @@ const Map<String, String> schemasData = {
                                 "type": "string",
                                 "enum": [
                                   "reply",
-                                  "root"
+                                  "root",
+                                  "mention"
                                 ]
                               },
                               {
@@ -9062,8 +9619,16 @@ const Map<String, String> schemasData = {
                                 "pattern": "^[a-f0-9]{64}$"
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ],
                             "additionalItems": false
@@ -9102,6 +9667,27 @@ const Map<String, String> schemasData = {
                                     "$schema": "http://json-schema.org/draft-07/schema#",
                                     "type": "string",
                                     "pattern": "^[a-f0-9]{64}$"
+                                  }
+                                ]
+                              },
+                              {
+                                "title": "recommended relay URL",
+                                "anyOf": [
+                                  {
+                                    "allOf": [
+                                      {
+                                        "$schema": "http://json-schema.org/draft-07/schema#",
+                                        "title": "relayUrl",
+                                        "type": "string",
+                                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": ""
                                   }
                                 ]
                               },
@@ -9145,8 +9731,16 @@ const Map<String, String> schemasData = {
                                 "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ],
                             "additionalItems": true
@@ -9181,8 +9775,20 @@ const Map<String, String> schemasData = {
                                 "const": "r"
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$",
+                                "allOf": [
+                                  {
+                                    "allOf": [
+                                      {
+                                        "$schema": "http://json-schema.org/draft-07/schema#",
+                                        "title": "relayUrl",
+                                        "type": "string",
+                                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                      }
+                                    ]
+                                  }
+                                ],
                                 "description": "Relay URL"
                               },
                               {
@@ -9341,6 +9947,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -9472,8 +10079,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -9737,6 +10352,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -9863,8 +10479,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -9908,6 +10532,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -10193,6 +10838,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -10319,8 +10965,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -10364,6 +11018,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -10622,6 +11297,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -10753,8 +11429,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -10847,6 +11531,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -10981,8 +11666,16 @@ const Map<String, String> schemasData = {
                                 "const": ""
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -11057,8 +11750,16 @@ const Map<String, String> schemasData = {
                                   "const": ""
                                 },
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -11205,6 +11906,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -11339,8 +12041,16 @@ const Map<String, String> schemasData = {
                                 "const": ""
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -11415,8 +12125,16 @@ const Map<String, String> schemasData = {
                                   "const": ""
                                 },
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -11613,6 +12331,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -11747,8 +12466,16 @@ const Map<String, String> schemasData = {
                                 "const": ""
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -11823,8 +12550,16 @@ const Map<String, String> schemasData = {
                                   "const": ""
                                 },
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -11971,6 +12706,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -12105,8 +12841,16 @@ const Map<String, String> schemasData = {
                                 "const": ""
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -12181,8 +12925,16 @@ const Map<String, String> schemasData = {
                                   "const": ""
                                 },
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -12329,6 +13081,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -12706,11 +13459,30 @@ const Map<String, String> schemasData = {
                               "const": "relays"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$"
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "title": "relayUrl",
+                                  "type": "string",
+                                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                }
+                              ]
                             }
                           ],
-                          "additionalItems": true
+                          "additionalItems": {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
+                          }
                         }
                       ]
                     }
@@ -12756,13 +13528,23 @@ const Map<String, String> schemasData = {
                               "const": "maintainers"
                             },
                             {
-                              "type": "string",
-                              "minLength": 1
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "type": "string",
+                                  "pattern": "^[a-f0-9]{64}$"
+                                }
+                              ]
                             }
                           ],
                           "additionalItems": {
-                            "type": "string",
-                            "minLength": 1
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
                           }
                         }
                       ]
@@ -12854,6 +13636,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -13409,8 +14192,16 @@ const Map<String, String> schemasData = {
               "const": ""
             },
             {
-              "type": "string",
-              "pattern": "^(ws://|wss://).+$"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             }
           ]
         },
@@ -13458,8 +14249,16 @@ const Map<String, String> schemasData = {
               "const": ""
             },
             {
-              "type": "string",
-              "pattern": "^(ws://|wss://).+$"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             }
           ]
         },
@@ -13530,13 +14329,23 @@ const Map<String, String> schemasData = {
           "const": "maintainers"
         },
         {
-          "type": "string",
-          "minLength": 1
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
         }
       ],
       "additionalItems": {
-        "type": "string",
-        "minLength": 1
+        "allOf": [
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        ]
       }
     }
   ],
@@ -13809,6 +14618,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14007,6 +14817,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14135,8 +14946,16 @@ const Map<String, String> schemasData = {
                       {
                         "anyOf": [
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           },
                           {
                             "type": "string",
@@ -14148,7 +14967,8 @@ const Map<String, String> schemasData = {
                         "type": "string",
                         "enum": [
                           "reply",
-                          "root"
+                          "root",
+                          "mention"
                         ]
                       },
                       {
@@ -14176,8 +14996,16 @@ const Map<String, String> schemasData = {
                         "pattern": "^[a-f0-9]{64}$"
                       },
                       {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$"
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "title": "relayUrl",
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                          }
+                        ]
                       }
                     ],
                     "additionalItems": false
@@ -14251,6 +15079,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14354,6 +15183,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14557,6 +15387,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14829,6 +15660,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -14971,6 +15803,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -15098,8 +15931,16 @@ const Map<String, String> schemasData = {
                                     "const": "relay"
                                   },
                                   {
-                                    "type": "string",
-                                    "pattern": "^(ws://|wss://).+$"
+                                    "allOf": [
+                                      {
+                                        "$schema": "http://json-schema.org/draft-07/schema#",
+                                        "title": "relayUrl",
+                                        "type": "string",
+                                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                      }
+                                    ]
                                   }
                                 ],
                                 "additionalItems": false
@@ -15205,6 +16046,7 @@ const Map<String, String> schemasData = {
                     },
                     "created_at": {
                       "type": "integer",
+                      "minimum": 0,
                       "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
                       "description": "The timestamp of the note creation"
                     },
@@ -15332,8 +16174,16 @@ const Map<String, String> schemasData = {
                                             "const": "relay"
                                           },
                                           {
-                                            "type": "string",
-                                            "pattern": "^(ws://|wss://).+$"
+                                            "allOf": [
+                                              {
+                                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                                "title": "relayUrl",
+                                                "type": "string",
+                                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                              }
+                                            ]
                                           }
                                         ],
                                         "additionalItems": false
@@ -15490,6 +16340,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -15711,6 +16562,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -15923,6 +16775,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -16135,6 +16988,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -16302,6 +17156,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -16475,6 +17330,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -16518,6 +17394,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -16687,6 +17564,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -17017,6 +17915,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -17160,6 +18059,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -17204,6 +18124,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -17316,6 +18237,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -17459,6 +18381,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -17503,6 +18446,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -17646,6 +18590,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -17695,8 +18660,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -17708,7 +18681,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -17736,8 +18710,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -17780,6 +18762,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -17923,6 +18906,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -17967,6 +18971,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18110,6 +19115,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -18236,6 +19262,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18342,6 +19369,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18448,6 +19476,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18554,6 +19583,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18660,6 +19690,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18766,6 +19797,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18872,6 +19904,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -18978,6 +20011,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19084,6 +20118,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19190,6 +20225,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19296,6 +20332,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19402,6 +20439,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19508,6 +20546,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19614,6 +20653,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -19720,6 +20760,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -20059,6 +21100,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -20398,6 +21440,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -20737,6 +21780,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -21076,6 +22120,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -21415,6 +22460,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -21754,6 +22800,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -22089,6 +23136,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -22428,6 +23476,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -22767,6 +23816,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -23106,6 +24156,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -23445,6 +24496,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -23784,6 +24836,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -24133,8 +25186,16 @@ const Map<String, String> schemasData = {
           "minLength": 1
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         },
         {
           "type": "string",
@@ -24198,6 +25259,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -24683,6 +25745,27 @@ const Map<String, String> schemasData = {
                               ]
                             },
                             {
+                              "title": "recommended relay URL",
+                              "anyOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "const": ""
+                                }
+                              ]
+                            },
+                            {
                               "title": "petname",
                               "type": "string"
                             }
@@ -24799,8 +25882,20 @@ const Map<String, String> schemasData = {
                               "const": "r"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$",
+                              "allOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                }
+                              ],
                               "description": "Relay URL"
                             },
                             {
@@ -24901,6 +25996,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -25420,6 +26516,27 @@ const Map<String, String> schemasData = {
                               ]
                             },
                             {
+                              "title": "recommended relay URL",
+                              "anyOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "const": ""
+                                }
+                              ]
+                            },
+                            {
                               "title": "petname",
                               "type": "string"
                             }
@@ -25536,8 +26653,20 @@ const Map<String, String> schemasData = {
                               "const": "r"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$",
+                              "allOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                }
+                              ],
                               "description": "Relay URL"
                             },
                             {
@@ -25759,6 +26888,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -26115,6 +27245,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -26472,8 +27603,16 @@ const Map<String, String> schemasData = {
                             {
                               "anyOf": [
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 },
                                 {
                                   "type": "string",
@@ -26485,7 +27624,8 @@ const Map<String, String> schemasData = {
                               "type": "string",
                               "enum": [
                                 "reply",
-                                "root"
+                                "root",
+                                "mention"
                               ]
                             },
                             {
@@ -26513,8 +27653,16 @@ const Map<String, String> schemasData = {
                               "pattern": "^[a-f0-9]{64}$"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$"
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "title": "relayUrl",
+                                  "type": "string",
+                                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                }
+                              ]
                             }
                           ],
                           "additionalItems": false
@@ -26576,6 +27724,27 @@ const Map<String, String> schemasData = {
                                   "$schema": "http://json-schema.org/draft-07/schema#",
                                   "type": "string",
                                   "pattern": "^[a-f0-9]{64}$"
+                                }
+                              ]
+                            },
+                            {
+                              "title": "recommended relay URL",
+                              "anyOf": [
+                                {
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "string",
+                                  "const": ""
                                 }
                               ]
                             },
@@ -26823,6 +27992,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -26947,8 +28117,16 @@ const Map<String, String> schemasData = {
                         "pattern": "^30312:[a-f0-9]{64}:.+$"
                       },
                       {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$"
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "title": "relayUrl",
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                          }
+                        ]
                       }
                     ],
                     "additionalItems": true
@@ -26988,6 +28166,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -27112,8 +28291,16 @@ const Map<String, String> schemasData = {
                         "pattern": "^30311:[a-f0-9]{64}:.+$"
                       },
                       {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$"
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "title": "relayUrl",
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                          }
+                        ]
                       }
                     ],
                     "additionalItems": true
@@ -27153,6 +28340,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -27313,6 +28501,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -27606,6 +28795,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -27649,6 +28859,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -27814,8 +29025,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^30312:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -27989,8 +29208,16 @@ const Map<String, String> schemasData = {
           "pattern": "^30311:[a-f0-9]{64}:.+$"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ],
       "additionalItems": true
@@ -28025,8 +29252,16 @@ const Map<String, String> schemasData = {
           "pattern": "^30312:[a-f0-9]{64}:.+$"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ],
       "additionalItems": true
@@ -28283,11 +29518,30 @@ const Map<String, String> schemasData = {
           "const": "relays"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ],
-      "additionalItems": true
+      "additionalItems": {
+        "allOf": [
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "relayUrl",
+            "type": "string",
+            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+          }
+        ]
+      }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/relays.json"
@@ -28603,6 +29857,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -28769,6 +30024,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -28940,8 +30196,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -28984,6 +30248,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -29110,8 +30375,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -29155,6 +30428,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -29242,6 +30536,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -29358,6 +30653,27 @@ const Map<String, String> schemasData = {
                                     "$schema": "http://json-schema.org/draft-07/schema#",
                                     "type": "string",
                                     "pattern": "^[a-f0-9]{64}$"
+                                  }
+                                ]
+                              },
+                              {
+                                "title": "recommended relay URL",
+                                "anyOf": [
+                                  {
+                                    "allOf": [
+                                      {
+                                        "$schema": "http://json-schema.org/draft-07/schema#",
+                                        "title": "relayUrl",
+                                        "type": "string",
+                                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "string",
+                                    "const": ""
                                   }
                                 ]
                               },
@@ -29652,6 +30968,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -29773,11 +31090,30 @@ const Map<String, String> schemasData = {
                             "const": "relays"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
-                        "additionalItems": true
+                        "additionalItems": {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
+                        }
                       }
                     ]
                   }
@@ -29818,6 +31154,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -29865,6 +31222,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -29991,6 +31349,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -30283,6 +31662,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -30466,6 +31846,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -30634,6 +32015,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -30764,8 +32146,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -30813,6 +32203,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -30856,6 +32267,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -30997,6 +32409,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -31115,6 +32528,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -31326,6 +32740,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -31624,6 +33039,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -31738,6 +33154,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -31946,6 +33363,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -32048,6 +33466,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -32169,8 +33588,16 @@ const Map<String, String> schemasData = {
                             "const": "relay"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -32254,7 +33681,9 @@ const Map<String, String> schemasData = {
                           },
                           {
                             "type": "string",
-                            "pattern": "^[a-f0-9]{64}$"
+                            "pattern": "^(02|03)[a-f0-9]{64}$",
+                            "description": "Compressed secp256k1 public key (33 bytes hex) for P2PK-locked nutzaps",
+                            "errorMessage": "pubkey must be a 66-character compressed secp256k1 public key (02 or 03 prefix + 64 hex chars)"
                           }
                         ],
                         "additionalItems": false
@@ -32264,7 +33693,7 @@ const Map<String, String> schemasData = {
                 ]
               },
               "errorMessage": {
-                "contains": "tags must include a pubkey tag for receiving nutzaps"
+                "contains": "tags must include a pubkey tag with a compressed secp256k1 key (02/03 prefix + 64 hex chars) for P2PK-locked nutzaps"
               }
             }
           ]
@@ -32294,6 +33723,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -32425,8 +33855,24 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
-                            "type": "string",
-                            "pattern": "^((ws://|wss://).+)?$"
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
                           },
                           {
                             "const": "redeemed"
@@ -32477,6 +33923,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -32518,6 +33985,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -32727,6 +34195,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -32784,8 +34273,24 @@ const Map<String, String> schemasData = {
           ]
         },
         {
-          "type": "string",
-          "pattern": "^((ws://|wss://).+)?$"
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ]
         },
         {
           "const": "redeemed"
@@ -32887,7 +34392,9 @@ const Map<String, String> schemasData = {
         },
         {
           "type": "string",
-          "pattern": "^[a-f0-9]{64}$"
+          "pattern": "^(02|03)[a-f0-9]{64}$",
+          "description": "Compressed secp256k1 public key (33 bytes hex) for P2PK-locked nutzaps",
+          "errorMessage": "pubkey must be a 66-character compressed secp256k1 public key (02 or 03 prefix + 64 hex chars)"
         }
       ],
       "additionalItems": false
@@ -32945,6 +34452,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -33061,12 +34569,21 @@ const Map<String, String> schemasData = {
                     "const": "relay"
                   },
                   {
-                    "type": "string",
                     "anyOf": [
                       {
-                        "pattern": "^(ws://|wss://).+$"
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "title": "relayUrl",
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                          }
+                        ]
                       },
                       {
+                        "type": "string",
                         "const": "ALL_RELAYS"
                       }
                     ]
@@ -33107,6 +34624,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -33219,6 +34737,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -33339,8 +34858,20 @@ const Map<String, String> schemasData = {
                         "const": "r"
                       },
                       {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$",
+                        "allOf": [
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
+                          }
+                        ],
                         "description": "Relay URL"
                       },
                       {
@@ -33400,8 +34931,20 @@ const Map<String, String> schemasData = {
           "const": "r"
         },
         {
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$",
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
+            }
+          ],
           "description": "Relay URL"
         },
         {
@@ -33439,6 +34982,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -33545,6 +35089,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -33704,6 +35249,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -34212,6 +35758,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -35288,6 +36835,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -35481,6 +37029,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -35674,6 +37223,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -35923,6 +37473,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -36172,6 +37723,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -36331,6 +37883,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -36456,8 +38009,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": true
@@ -36505,8 +38066,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -36518,7 +38087,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -36546,8 +38116,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -36591,6 +38169,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -36681,6 +38280,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -36843,11 +38443,30 @@ const Map<String, String> schemasData = {
                             "const": "relays"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
-                        "additionalItems": true
+                        "additionalItems": {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
+                        }
                       }
                     ]
                   }
@@ -36886,6 +38505,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37050,6 +38670,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37157,6 +38778,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37329,6 +38951,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37457,9 +39080,16 @@ const Map<String, String> schemasData = {
                     ]
                   },
                   {
-                    "type": "string",
-                    "pattern": "^wss?://.+",
-                    "description": "Relay hint"
+                    "allOf": [
+                      {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "title": "relayUrl",
+                        "type": "string",
+                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                        "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                        "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                      }
+                    ]
                   }
                 ],
                 "additionalItems": false
@@ -37501,6 +39131,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37672,6 +39303,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -37843,6 +39475,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -38014,6 +39647,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -38256,6 +39890,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -38555,6 +40190,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -38966,6 +40602,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -39121,8 +40758,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -39241,8 +40886,16 @@ const Map<String, String> schemasData = {
                             {
                               "anyOf": [
                                 {
-                                  "type": "string",
-                                  "pattern": "^(ws://|wss://).+$"
+                                  "allOf": [
+                                    {
+                                      "$schema": "http://json-schema.org/draft-07/schema#",
+                                      "title": "relayUrl",
+                                      "type": "string",
+                                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                    }
+                                  ]
                                 },
                                 {
                                   "type": "string",
@@ -39299,6 +40952,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -39451,8 +41105,16 @@ const Map<String, String> schemasData = {
                             "const": "relay"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -39553,8 +41215,16 @@ const Map<String, String> schemasData = {
                               "const": "relay"
                             },
                             {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$"
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "title": "relayUrl",
+                                  "type": "string",
+                                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                }
+                              ]
                             }
                           ],
                           "additionalItems": false
@@ -39841,6 +41511,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -39998,8 +41669,16 @@ const Map<String, String> schemasData = {
                                 "pattern": "^\\d+:[a-f0-9]{64}:.+$"
                               },
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               }
                             ],
                             "additionalItems": true
@@ -40038,6 +41717,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -40248,8 +41928,20 @@ const Map<String, String> schemasData = {
         },
         {
           "title": "relay_hint",
-          "type": "string",
-          "pattern": "^(ws://|wss://).+$"
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
+            }
+          ]
         }
       ],
       "additionalItems": false
@@ -40275,6 +41967,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -40382,6 +42075,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -40488,6 +42182,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -40594,6 +42289,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -40729,8 +42425,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -40742,7 +42446,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -40770,8 +42475,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -40815,6 +42528,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -40957,6 +42691,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -41091,8 +42826,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -41104,7 +42847,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -41132,8 +42876,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -41177,6 +42929,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -41227,8 +43000,9 @@ const Map<String, String> schemasData = {
                       },
                       {
                         "type": "string",
-                        "minLength": 1,
-                        "description": "Optional bolt11 invoice"
+                        "pattern": "^lnbc[a-z0-9]*1[02-9ac-hj-np-z]+$",
+                        "description": "Optional bolt11 invoice",
+                        "errorMessage": "must be a valid bolt11 invoice starting with 'lnbc'"
                       }
                     ],
                     "additionalItems": false,
@@ -41322,6 +43096,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -41456,8 +43231,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -41469,7 +43252,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -41497,8 +43281,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -41542,6 +43334,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -41592,8 +43405,9 @@ const Map<String, String> schemasData = {
                       },
                       {
                         "type": "string",
-                        "minLength": 1,
-                        "description": "Optional bolt11 invoice"
+                        "pattern": "^lnbc[a-z0-9]*1[02-9ac-hj-np-z]+$",
+                        "description": "Optional bolt11 invoice",
+                        "errorMessage": "must be a valid bolt11 invoice starting with 'lnbc'"
                       }
                     ],
                     "additionalItems": false,
@@ -41687,6 +43501,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -41822,8 +43637,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -41835,7 +43658,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -41863,8 +43687,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -41908,6 +43740,27 @@ const Map<String, String> schemasData = {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },
@@ -42046,8 +43899,9 @@ const Map<String, String> schemasData = {
         },
         {
           "type": "string",
-          "minLength": 1,
-          "description": "MIME type of desired output"
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]*/[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]*$",
+          "description": "MIME type of desired output",
+          "errorMessage": "must be a valid MIME type (e.g. 'text/plain', 'image/png')"
         }
       ],
       "additionalItems": false
@@ -42143,6 +43997,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -42496,6 +44351,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -42667,6 +44523,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -42937,6 +44794,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -43263,6 +45121,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -43589,6 +45448,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -43702,6 +45562,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -43867,6 +45728,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44003,6 +45865,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -44047,6 +45930,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44309,6 +46193,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44539,6 +46424,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44645,6 +46531,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44815,6 +46702,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -44922,6 +46810,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45029,6 +46918,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45136,6 +47026,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45243,6 +47134,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45350,6 +47242,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45545,6 +47438,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45688,6 +47582,27 @@ const Map<String, String> schemasData = {
                             ]
                           },
                           {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
                             "title": "petname",
                             "type": "string"
                           }
@@ -45732,6 +47647,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -45895,6 +47811,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -46140,6 +48057,85 @@ const Map<String, String> schemasData = {
           ]
         }
       },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "tags": {
+                "contains": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": [
+                    {
+                      "const": "relays"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "tags": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": [
+                            {
+                              "const": "relays"
+                            },
+                            {
+                              "allOf": [
+                                {
+                                  "$schema": "http://json-schema.org/draft-07/schema#",
+                                  "title": "relayUrl",
+                                  "type": "string",
+                                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                }
+                              ]
+                            }
+                          ],
+                          "additionalItems": {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ],
       "required": [
         "kind",
         "content",
@@ -46206,6 +48202,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -46525,6 +48522,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -46929,6 +48927,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -47514,6 +49513,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -48199,6 +50199,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -48320,8 +50321,16 @@ const Map<String, String> schemasData = {
                         "const": "relay"
                       },
                       {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$"
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "title": "relayUrl",
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                          }
+                        ]
                       }
                     ],
                     "additionalItems": false
@@ -48361,6 +50370,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -48699,11 +50709,30 @@ const Map<String, String> schemasData = {
                             "const": "relays"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
-                        "additionalItems": true
+                        "additionalItems": {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
+                        }
                       }
                     ]
                   }
@@ -49202,8 +51231,16 @@ const Map<String, String> schemasData = {
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -49215,7 +51252,8 @@ const Map<String, String> schemasData = {
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -49243,8 +51281,16 @@ const Map<String, String> schemasData = {
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -49283,11 +51329,30 @@ const Map<String, String> schemasData = {
                             "const": "relays"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
-                        "additionalItems": true
+                        "additionalItems": {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
+                        }
                       }
                     ]
                   }
@@ -49379,6 +51444,7 @@ const Map<String, String> schemasData = {
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -49637,6 +51703,78 @@ const Map<String, String> schemasData = {
     }
   ]
 }''',
+  'nip19naddrSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "naddr",
+      "type": "string",
+      "pattern": "^naddr1[02-9ac-hj-np-z]+$",
+      "description": "NIP-19 bech32-encoded address (naddr, TLV-encoded)",
+      "errorMessage": "must be a valid naddr (bech32 string starting with naddr1)"
+    }
+  ]
+}''',
+  'nip19neventSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "nevent",
+      "type": "string",
+      "pattern": "^nevent1[02-9ac-hj-np-z]+$",
+      "description": "NIP-19 bech32-encoded event (nevent, TLV-encoded)",
+      "errorMessage": "must be a valid nevent (bech32 string starting with nevent1)"
+    }
+  ]
+}''',
+  'nip19noteSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "nip19Note",
+      "type": "string",
+      "pattern": "^note1[02-9ac-hj-np-z]{58}$",
+      "description": "NIP-19 bech32-encoded event id (note)",
+      "errorMessage": "must be a valid note id (63-char bech32 string starting with note1)"
+    }
+  ]
+}''',
+  'nip19nprofileSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "nprofile",
+      "type": "string",
+      "pattern": "^nprofile1[02-9ac-hj-np-z]+$",
+      "description": "NIP-19 bech32-encoded profile (nprofile, TLV-encoded)",
+      "errorMessage": "must be a valid nprofile (bech32 string starting with nprofile1)"
+    }
+  ]
+}''',
+  'nip19npubSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "npub",
+      "type": "string",
+      "pattern": "^npub1[02-9ac-hj-np-z]{58}$",
+      "description": "NIP-19 bech32-encoded public key (npub)",
+      "errorMessage": "must be a valid npub (63-char bech32 string starting with npub1)"
+    }
+  ]
+}''',
+  'nostruriSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "nostrUri",
+      "type": "string",
+      "pattern": "^nostr:((npub|note)1[02-9ac-hj-np-z]{58}|(nprofile|nevent|naddr)1[02-9ac-hj-np-z]+)$",
+      "description": "NIP-27 nostr: URI scheme (nostr: prefix with bech32-encoded entity)",
+      "errorMessage": "must be a valid nostr: URI (nostr: followed by npub1/note1/nprofile1/nevent1/naddr1)"
+    }
+  ]
+}''',
   'nostrwellknownSchema': r'''{
   "allOf": [
     {
@@ -49674,9 +51812,16 @@ const Map<String, String> schemasData = {
           "additionalProperties": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uri",
-              "pattern": "^wss?://"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             }
           }
         }
@@ -49708,6 +51853,7 @@ const Map<String, String> schemasData = {
                 },
                 "created_at": {
                   "type": "integer",
+                  "minimum": 0,
                   "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
                   "description": "The timestamp of the note creation"
                 },
@@ -49835,8 +51981,16 @@ const Map<String, String> schemasData = {
                                         "const": "relay"
                                       },
                                       {
-                                        "type": "string",
-                                        "pattern": "^(ws://|wss://).+$"
+                                        "allOf": [
+                                          {
+                                            "$schema": "http://json-schema.org/draft-07/schema#",
+                                            "title": "relayUrl",
+                                            "type": "string",
+                                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                          }
+                                        ]
                                       }
                                     ],
                                     "additionalItems": false
@@ -49992,6 +52146,18 @@ const Map<String, String> schemasData = {
     }
   ]
 }''',
+  'relayurlSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "relayUrl",
+      "type": "string",
+      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+    }
+  ]
+}''',
   'authrelayTagSchema': r'''{
   "allOf": [
     {
@@ -50022,8 +52188,16 @@ const Map<String, String> schemasData = {
                       "const": "relay"
                     },
                     {
-                      "type": "string",
-                      "pattern": "^(ws://|wss://).+$"
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "title": "relayUrl",
+                          "type": "string",
+                          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                          "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                          "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                        }
+                      ]
                     }
                   ],
                   "additionalItems": false
@@ -50071,8 +52245,16 @@ const Map<String, String> schemasData = {
                       "const": "relay"
                     },
                     {
-                      "type": "string",
-                      "pattern": "^(ws://|wss://).+$"
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "title": "relayUrl",
+                          "type": "string",
+                          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                          "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                          "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                        }
+                      ]
                     }
                   ],
                   "additionalItems": false
@@ -50089,8 +52271,16 @@ const Map<String, String> schemasData = {
               "const": "relay"
             },
             {
-              "type": "string",
-              "pattern": "^wss?://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/.*)?$"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             }
           ]
         }
@@ -50539,8 +52729,16 @@ const Map<String, String> schemasData = {
             {
               "anyOf": [
                 {
-                  "type": "string",
-                  "pattern": "^(ws://|wss://).+$"
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "relayUrl",
+                      "type": "string",
+                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                    }
+                  ]
                 },
                 {
                   "type": "string",
@@ -50598,8 +52796,16 @@ const Map<String, String> schemasData = {
           "additionalItems": {
             "anyOf": [
               {
-                "type": "string",
-                "pattern": "^(ws://|wss://).+$"
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "relayUrl",
+                    "type": "string",
+                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                  }
+                ]
               },
               {
                 "allOf": [
