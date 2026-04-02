@@ -1,8 +1,10 @@
-// Generated from nostrability/schemata v0.3.1 -- do not edit manually.
+// Generated from nostrability/schemata v0.3.2 -- do not edit manually.
 const Map<String, String> schemasData = {
   'kind0ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Metadata Event Schema",
+  "title": "kind0Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Profile metadata (NIP-01). Decoded from event content via JSON.parse().",
   "type": "object",
   "properties": {
     "name": {
@@ -98,7 +100,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -201,7 +206,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -328,7 +336,10 @@ const Map<String, String> schemasData = {
                   "description": "The id is a hash derived as specified in NIP-01"
                 },
                 "kind": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "errorMessage": "kind must be an integer between 0 and 65535"
                 },
                 "pubkey": {
                   "allOf": [
@@ -398,7 +409,10 @@ const Map<String, String> schemasData = {
     },
     {
       "type": "string",
-      "description": "An identifier for the subscription, this should be unique."
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "An arbitrary, non-empty string of max length 64 chars.",
+      "errorMessage": "subscription_id must be a non-empty string of at most 64 characters"
     },
     {
       "allOf": [
@@ -661,7 +675,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -792,7 +809,10 @@ const Map<String, String> schemasData = {
       "description": "The id is a hash derived as specified in NIP-01"
     },
     "kind": {
-      "type": "integer"
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "errorMessage": "kind must be an integer between 0 and 65535"
     },
     "pubkey": {
       "allOf": [
@@ -1209,6 +1229,8 @@ const Map<String, String> schemasData = {
   'kind3ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind3Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Contact list relay map (NIP-02). Decoded from event content via JSON.parse().",
   "type": "object",
   "patternProperties": {
     "^(wss://|ws://).*$": {
@@ -1270,7 +1292,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -1468,7 +1493,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -1750,7 +1778,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -2045,7 +2076,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -2197,11 +2231,12 @@ const Map<String, String> schemasData = {
     },
     "relay_countries": {
       "type": "array",
-      "items": [
-        {
-          "type": "string"
-        }
-      ]
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      },
+      "description": "ISO 3166-1 alpha-2 country codes (e.g., US, DE, JP)",
+      "errorMessage": "relay_countries must be an array of two-letter uppercase ISO 3166-1 alpha-2 country codes"
     },
     "software": {
       "type": "string",
@@ -2612,7 +2647,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -3925,6 +3963,108 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/tag/x.json"
 }''',
+  'kind16ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind16Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Reposted event of any kind (NIP-18). Decoded from event content via JSON.parse(). Content MAY be empty.",
+  "oneOf": [
+    {
+      "type": "string",
+      "maxLength": 0
+    },
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "minimum": 0,
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  ]
+}''',
   'kind16Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind16",
@@ -3963,7 +4103,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -4095,6 +4238,121 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/16.json"
 }''',
+  'kind6ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind6Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Reposted kind:1 note (NIP-18). Decoded from event content via JSON.parse(). Content MAY be empty.",
+  "oneOf": [
+    {
+      "type": "string",
+      "maxLength": 0
+    },
+    {
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema",
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "errorMessage": "content must be a string",
+                  "description": "The content of the note"
+                },
+                "created_at": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+                  "description": "The timestamp of the note creation"
+                },
+                "id": {
+                  "allOf": [
+                    {
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        }
+                      ]
+                    }
+                  ],
+                  "errorMessage": "id must be a valid hash",
+                  "description": "The id is a hash derived as specified in NIP-01"
+                },
+                "kind": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "errorMessage": "kind must be an integer between 0 and 65535"
+                },
+                "pubkey": {
+                  "allOf": [
+                    {
+                      "allOf": [
+                        {
+                          "$schema": "http://json-schema.org/draft-07/schema#",
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        }
+                      ]
+                    }
+                  ],
+                  "errorMessage": "pubkey must be a secp256k1 public key",
+                  "description": "The public key of the note's author"
+                },
+                "sig": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{128}$",
+                  "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+                  "description": "The cryptographic signature of the note"
+                },
+                "tags": {
+                  "type": "array",
+                  "errorMessage": "tags must be an array of valid tag tuples",
+                  "description": "The tags of the note",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "uniqueItems": false
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "content",
+                "created_at",
+                "id",
+                "kind",
+                "pubkey",
+                "sig",
+                "tags"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": 1,
+              "errorMessage": "reposted event kind must equal 1"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}''',
   'kind6Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind6",
@@ -4133,7 +4391,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -4400,6 +4661,7 @@ const Map<String, String> schemasData = {
   'kind1111Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind1111",
+  "description": "NIP-22 Comment event",
   "allOf": [
     {
       "allOf": [
@@ -4434,7 +4696,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -4487,9 +4752,108 @@ const Map<String, String> schemasData = {
           "additionalProperties": false
         }
       ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 1111,
+          "errorMessage": "kind must equal 1111"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "allOf": [
+            {
+              "contains": {
+                "type": "array",
+                "minItems": 2,
+                "items": [
+                  {
+                    "const": "K"
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a K tag identifying the root scope kind"
+              }
+            },
+            {
+              "contains": {
+                "type": "array",
+                "minItems": 2,
+                "items": [
+                  {
+                    "const": "k"
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a k tag identifying the parent item kind"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/1111.json"
+}''',
+  'KTagSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "NIP-22 K tag identifying the root scope kind (uppercase)",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "const": "K"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ],
+      "additionalItems": false
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/K.json"
 }''',
   'ATagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -4652,47 +5016,6 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_E.json"
 }''',
-  'KTagSchema': r'''{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "allOf": [
-    {
-      "allOf": [
-        {
-          "$schema": "http://json-schema.org/draft-07/schema#",
-          "allOf": [
-            {
-              "allOf": [
-                {
-                  "$schema": "http://json-schema.org/draft-07/schema#",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "uniqueItems": false
-                }
-              ]
-            },
-            {
-              "type": "array",
-              "minItems": 2,
-              "items": [
-                {
-                  "const": "k"
-                },
-                {
-                  "type": "string",
-                  "pattern": "^\\d+$"
-                }
-              ],
-              "additionalItems": false
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "$id": "https://nostrability.github.io/schemata/tag/_K.json"
-}''',
   'PTagSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
@@ -4764,6 +5087,18 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/tag/_P.json"
 }''',
+  'kind30023ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind30023Content",
+  "x-content-encoding": "plaintext",
+  "description": "Markdown-formatted long-form article body (NIP-23).",
+  "type": "string",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "minLength": "content must not be empty"
+  }
+}''',
   'kind30023Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind30023",
@@ -4802,7 +5137,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -5006,7 +5344,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -5204,7 +5545,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -5497,7 +5841,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -5899,6 +6246,52 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/tag/emoji.json"
 }''',
+  'kind40ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind40Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Channel creation metadata (NIP-28). Decoded from event content via JSON.parse().",
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "channelMetadata",
+      "description": "Channel metadata object shared by kind:40 and kind:41 (NIP-28)",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Channel name"
+        },
+        "about": {
+          "type": "string",
+          "description": "Channel description"
+        },
+        "picture": {
+          "type": "string",
+          "format": "uri",
+          "description": "Channel picture URL"
+        },
+        "relays": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "title": "relayUrl",
+                "type": "string",
+                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+              }
+            ]
+          },
+          "description": "Recommended relay URLs for the channel"
+        }
+      },
+      "additionalProperties": true
+    }
+  ]
+}''',
   'kind40Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NIP-28 Channel Creation (kind 40)",
@@ -5937,7 +6330,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -6007,6 +6403,52 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/40.json"
 }''',
+  'kind41ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind41Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Channel metadata update (NIP-28). Decoded from event content via JSON.parse().",
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "channelMetadata",
+      "description": "Channel metadata object shared by kind:40 and kind:41 (NIP-28)",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Channel name"
+        },
+        "about": {
+          "type": "string",
+          "description": "Channel description"
+        },
+        "picture": {
+          "type": "string",
+          "format": "uri",
+          "description": "Channel picture URL"
+        },
+        "relays": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "title": "relayUrl",
+                "type": "string",
+                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+              }
+            ]
+          },
+          "description": "Recommended relay URLs for the channel"
+        }
+      },
+      "additionalProperties": true
+    }
+  ]
+}''',
   'kind41Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NIP-28 Channel Metadata (kind 41)",
@@ -6045,7 +6487,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -6282,7 +6727,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -6519,7 +6967,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -6756,7 +7207,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -6956,7 +7410,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -7120,7 +7577,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -7284,7 +7744,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -7448,7 +7911,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -7612,7 +8078,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -7848,7 +8317,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -8084,7 +8556,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -8250,7 +8725,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -8523,7 +9001,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -8689,7 +9170,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -8855,7 +9339,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -9061,7 +9548,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -9227,7 +9717,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -9425,7 +9918,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -9967,7 +10463,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -10372,7 +10871,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -10858,7 +11360,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -11317,7 +11822,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -11551,7 +12059,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -11926,7 +12437,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -12351,7 +12865,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -12726,7 +13243,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -13101,7 +13621,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -13656,7 +14179,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -14638,7 +15164,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -14837,7 +15366,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -15099,7 +15631,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -15203,7 +15738,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -15407,7 +15945,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -15680,7 +16221,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -15823,7 +16367,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -16066,7 +16613,10 @@ const Map<String, String> schemasData = {
                       "description": "The id is a hash derived as specified in NIP-01"
                     },
                     "kind": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 65535,
+                      "errorMessage": "kind must be an integer between 0 and 65535"
                     },
                     "pubkey": {
                       "allOf": [
@@ -16360,7 +16910,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -16582,7 +17135,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -16795,7 +17351,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -17008,7 +17567,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -17176,7 +17738,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -17414,7 +17979,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -17935,7 +18503,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -18106,6 +18677,20 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/24133.json"
 }''',
+  'kind13194ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind13194Content",
+  "x-content-encoding": "plaintext",
+  "description": "Space-separated list of supported NWC methods (NIP-47).",
+  "type": "string",
+  "pattern": "^[a-z_]+( [a-z_]+)*$",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must contain only lowercase method names with underscores, separated by single spaces",
+    "minLength": "content must not be empty"
+  }
+}''',
   'kind13194Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NIP-47 Wallet Connect Info Event (kind 13194)",
@@ -18144,7 +18729,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -18257,7 +18845,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -18466,7 +19057,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -18782,7 +19376,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -18991,7 +19588,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19282,7 +19882,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19389,7 +19992,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19496,7 +20102,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19603,7 +20212,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19710,7 +20322,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19817,7 +20432,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -19924,7 +20542,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20031,7 +20652,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20138,7 +20762,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20245,7 +20872,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20352,7 +20982,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20459,7 +21092,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20566,7 +21202,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20673,7 +21312,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -20780,7 +21422,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -21120,7 +21765,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -21460,7 +22108,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -21800,7 +22451,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -22140,7 +22794,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -22480,7 +23137,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -22820,7 +23480,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -23156,7 +23819,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -23496,7 +24162,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -23836,7 +24505,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -24176,7 +24848,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -24516,7 +25191,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -24856,7 +25534,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -25279,7 +25960,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -26016,7 +26700,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -26908,7 +27595,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -27265,7 +27955,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -28012,7 +28705,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -28186,7 +28882,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -28360,7 +29059,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -28521,7 +29223,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -28879,7 +29584,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -29877,7 +30585,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -30044,7 +30755,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -30268,7 +30982,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -30556,7 +31273,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -30988,7 +31708,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -31242,7 +31965,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -31682,7 +32408,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -31866,7 +32595,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -32035,7 +32767,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -32287,7 +33022,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -32429,7 +33167,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -32548,7 +33289,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -32760,7 +33504,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -33059,7 +33806,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -33174,7 +33924,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -33383,7 +34136,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -33486,7 +34242,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -33743,7 +34502,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -34005,7 +34767,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -34472,7 +35237,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -34606,6 +35374,18 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/62.json"
 }''',
+  'kind64ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind64Content",
+  "x-content-encoding": "plaintext",
+  "description": "PGN (Portable Game Notation) chess game string (NIP-64). Full PGN parsing is beyond JSON Schema scope.",
+  "type": "string",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "minLength": "content must not be empty"
+  }
+}''',
   'kind64Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind64",
@@ -34644,7 +35424,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -34757,7 +35540,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -35002,7 +35788,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -35062,6 +35851,153 @@ const Map<String, String> schemasData = {
         "kind": {
           "const": 10166,
           "errorMessage": "kind must equal 10166"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "frequency"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "frequency"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "frequency tag must be [\"frequency\", \"<numeric-seconds>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "timeout"
+                    }
+                  ]
+                },
+                "then": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "items": [
+                        {
+                          "const": "timeout"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9]+$"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "items": [
+                        {
+                          "const": "timeout"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9]*$"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9]+$"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "items": [
+                        {
+                          "const": "timeout"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9]+$"
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^[a-z][a-z0-9]*$"
+                        }
+                      ]
+                    }
+                  ],
+                  "errorMessage": "timeout tag must be [\"timeout\", \"<ms>\"] or [\"timeout\", \"<test-type>\", \"<ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "c"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "c"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "c tag must be [\"c\", \"<check-type>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "g"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "g"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9bcdefghjkmnpqrstuvwxyz]+$"
+                    }
+                  ],
+                  "errorMessage": "g tag must be [\"g\", \"<geohash>\"]"
+                }
+              }
+            ]
+          }
         }
       },
       "required": [
@@ -35070,6 +36006,443 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10166.json"
+}''',
+  'kind30166ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind30166Content",
+  "x-content-encoding": "json-stringified",
+  "description": "NIP-11 relay information document (NIP-66). Decoded from event content via JSON.parse(). Content MAY be empty.",
+  "oneOf": [
+    {
+      "type": "string",
+      "maxLength": 0
+    },
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "NIP-11",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "errorMessage": "Name must be a string."
+            },
+            "description": {
+              "type": "string",
+              "errorMessage": "Description must be a string."
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "description": "The public key for the operator of the relay.",
+              "errorMessage": "Pubkey must be a valid hex secp256k1 public key, not an npub or nprofile."
+            },
+            "contact": {
+              "type": "string",
+              "description": "Contact information for the operator of the relay.",
+              "errorMessage": "Contact must be a string."
+            },
+            "supported_nips": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "An array of NIPs that the relay supports.",
+              "errorMessage": "Supported NIPs must be an array of numbers."
+            },
+            "relay_countries": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "description": "ISO 3166-1 alpha-2 country codes (e.g., US, DE, JP)",
+              "errorMessage": "relay_countries must be an array of two-letter uppercase ISO 3166-1 alpha-2 country codes"
+            },
+            "software": {
+              "type": "string",
+              "description": "The software that the relay is running.",
+              "errorMessage": "Software must be a string."
+            },
+            "version": {
+              "type": "string",
+              "description": "The version of the software that the relay is running.",
+              "errorMessage": "Version must be a string."
+            },
+            "retention": {
+              "type": "array",
+              "items": [
+                {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kinds": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "count": {
+                          "type": "number"
+                        },
+                        "time": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "description": "The retention policy of the relay.",
+                  "errorMessage": "Retention must be an object with at least one of kinds, count or time."
+                }
+              ]
+            },
+            "banner": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "icon": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "language_tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "posting_policy": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "pattern": "^$"
+                },
+                {
+                  "pattern": "^https?://"
+                }
+              ],
+              "errorMessage": "If provided, posting_policy must be a valid URL."
+            },
+            "limitation": {
+              "type": "object",
+              "properties": {
+                "max_message_length": {
+                  "type": "number"
+                },
+                "max_subscriptions": {
+                  "type": "number"
+                },
+                "max_filters": {
+                  "type": "number"
+                },
+                "max_limit": {
+                  "type": "number"
+                },
+                "max_subid_length": {
+                  "type": "number"
+                },
+                "max_event_tags": {
+                  "type": "number"
+                },
+                "max_content_length": {
+                  "type": "number"
+                },
+                "min_pow_difficulty": {
+                  "type": "number"
+                },
+                "auth_required": {
+                  "type": "boolean"
+                },
+                "payment_required": {
+                  "type": "boolean"
+                },
+                "restricted_writes": {
+                  "type": "boolean"
+                },
+                "created_at_lower_limit": {
+                  "type": "number"
+                },
+                "created_at_upper_limit": {
+                  "type": "number"
+                }
+              }
+            },
+            "payments_url": {
+              "type": "string",
+              "anyOf": [
+                {
+                  "pattern": "^$"
+                },
+                {
+                  "pattern": "^https?://"
+                }
+              ],
+              "errorMessage": "If provided, payments_url must be a valid URL."
+            },
+            "fees": {
+              "type": "object",
+              "properties": {
+                "admission": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "period": {
+                        "type": "number"
+                      },
+                      "kinds": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "unit"
+                    ]
+                  }
+                },
+                "subscription": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "period": {
+                        "type": "number"
+                      },
+                      "kinds": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "unit"
+                    ]
+                  }
+                },
+                "publication": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number"
+                      },
+                      "unit": {
+                        "type": "string"
+                      },
+                      "period": {
+                        "type": "number"
+                      },
+                      "kinds": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "unit"
+                    ]
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "limitation": {
+                    "properties": {
+                      "payment_required": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "payment_required"
+                    ]
+                  }
+                },
+                "required": [
+                  "limitation"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "payments_url": {
+                    "errorMessage": "payments_url must be provided and must be a valid URL when payment_required is true.",
+                    "type": "string",
+                    "pattern": "^https?://"
+                  },
+                  "fees": {
+                    "errorMessage": "A admission, subscription and/or publication member should be in fees when payment_required is true.",
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "admission": {
+                            "type": "array",
+                            "minItems": 1
+                          }
+                        },
+                        "required": [
+                          "admission"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "subscription": {
+                            "type": "array",
+                            "minItems": 1
+                          }
+                        },
+                        "required": [
+                          "subscription"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "publication": {
+                            "type": "array",
+                            "minItems": 1
+                          }
+                        },
+                        "required": [
+                          "publication"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "payments_url",
+                  "fees"
+                ]
+              }
+            }
+          ],
+          "$defs": {
+            "saneUrl": {
+              "type": "string",
+              "pattern": "^https?://"
+            },
+            "fee": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "type": "number"
+                  },
+                  "kinds": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "amount",
+                  "unit"
+                ]
+              }
+            },
+            "retent": {
+              "type": "object",
+              "properties": {
+                "kinds": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "count": {
+                  "type": "number"
+                },
+                "time": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
 }''',
   'kind30166Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -35109,7 +36482,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -35172,18 +36548,6 @@ const Map<String, String> schemasData = {
         },
         "tags": {
           "type": "array",
-          "items": {
-            "allOf": [
-              {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": false
-              }
-            ]
-          },
           "contains": {
             "allOf": [
               {
@@ -35220,6 +36584,289 @@ const Map<String, String> schemasData = {
           },
           "errorMessage": {
             "contains": "tags must include a d tag with the relay URL"
+          },
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-open"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-open"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-open tag must be [\"rtt-open\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-read"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-read"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-read tag must be [\"rtt-read\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-write"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-write"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-write tag must be [\"rtt-write\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "n"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "n"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "n tag must be [\"n\", \"<lowercase-network>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "T"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "T"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[A-Z][a-zA-Z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "T tag must be [\"T\", \"<PascalCase-relay-type>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "N"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "N"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "N tag must be [\"N\", \"<nip-number>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "R"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "R"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^!?[a-z][a-z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "R tag must be [\"R\", \"<requirement>\"] with optional ! negation prefix"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "t"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "t"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]*$"
+                    }
+                  ],
+                  "errorMessage": "t tag must be [\"t\", \"<lowercase-topic>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "k"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "k"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^!?[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "k tag must be [\"k\", \"<kind-number>\"] with optional ! negation prefix"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "g"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "g"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9bcdefghjkmnpqrstuvwxyz]+$"
+                    }
+                  ],
+                  "errorMessage": "g tag must be [\"g\", \"<geohash>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "l"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 3,
+                  "items": [
+                    {
+                      "const": "l"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ],
+                  "additionalItems": false,
+                  "errorMessage": "l tag must be [\"l\", \"<value>\", \"<namespace>\"]"
+                }
+              }
+            ]
           }
         }
       },
@@ -35269,7 +36916,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -35778,7 +37428,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -36855,7 +38508,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -37049,7 +38705,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -37243,7 +38902,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -37493,7 +39155,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -37743,7 +39408,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -37865,6 +39533,108 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/34550.json"
 }''',
+  'kind4550ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind4550Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Approved community post event (NIP-72). Decoded from event content via JSON.parse(). Content MAY be empty.",
+  "oneOf": [
+    {
+      "type": "string",
+      "maxLength": 0
+    },
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "minimum": 0,
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  ]
+}''',
   'kind4550Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind4550",
@@ -37903,7 +39673,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -38300,7 +40073,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -38525,7 +40301,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -38690,7 +40469,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -38760,6 +40542,13 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/11.json"
 }''',
+  'kind9802ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind9802Content",
+  "x-content-encoding": "plaintext",
+  "description": "Highlighted text (NIP-84). MAY be empty for non-text media highlights.",
+  "type": "string"
+}''',
   'kind9802Schema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind9802",
@@ -38798,7 +40587,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -38971,7 +40763,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -39151,7 +40946,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -39323,7 +41121,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -39495,7 +41296,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -39667,7 +41471,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -39910,7 +41717,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -40210,7 +42020,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -40622,7 +42435,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -40972,7 +42788,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -41531,7 +43350,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -41630,11 +43452,23 @@ const Map<String, String> schemasData = {
                         ]
                       }
                     ]
+                  },
+                  {
+                    "type": "array",
+                    "items": [
+                      {
+                        "const": "d"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^\\d+$"
+                      }
+                    ]
                   }
                 ]
               },
               "errorMessage": {
-                "contains": "tags must include a d tag identifying a supported event kind"
+                "contains": "tags must include a d tag with a supported event kind number (digits only)"
               }
             },
             {
@@ -41737,7 +43571,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -41987,7 +43824,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -42095,7 +43935,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -42202,7 +44045,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -42309,7 +44155,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -42711,7 +44560,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -43116,7 +44968,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -43521,7 +45376,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -44017,7 +45875,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -44371,7 +46232,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -44543,7 +46407,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -44814,7 +46681,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -45141,7 +47011,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -45468,7 +47341,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -45582,7 +47458,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -45748,7 +47627,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -45899,6 +47781,22 @@ const Map<String, String> schemasData = {
               "errorMessage": {
                 "contains": "tags must include at least one p tag for the message receiver"
               }
+            },
+            {
+              "not": {
+                "contains": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": [
+                    {
+                      "const": "e"
+                    }
+                  ]
+                }
+              },
+              "errorMessage": {
+                "not": "e tags must not be used in kind 24 public messages"
+              }
             }
           ]
         }
@@ -45950,7 +47848,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46031,39 +47932,57 @@ const Map<String, String> schemasData = {
               "contains": {
                 "allOf": [
                   {
-                    "$schema": "http://json-schema.org/draft-07/schema#",
                     "allOf": [
                       {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
                         "allOf": [
                           {
-                            "$schema": "http://json-schema.org/draft-07/schema#",
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            },
-                            "uniqueItems": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "array",
-                        "minItems": 2,
-                        "items": [
-                          {
-                            "const": "d"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "uniqueItems": false
+                              }
+                            ]
                           },
                           {
-                            "type": "string"
+                            "type": "array",
+                            "minItems": 2,
+                            "items": [
+                              {
+                                "const": "d"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "additionalItems": true
                           }
-                        ],
-                        "additionalItems": true
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "items": [
+                      {
+                        "const": "d"
+                      },
+                      {
+                        "type": "string",
+                        "not": {
+                          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://"
+                        }
                       }
                     ]
                   }
                 ]
               },
               "errorMessage": {
-                "contains": "tags must include a d tag with the URL (without scheme)"
+                "contains": "tags must include a d tag with the URL without scheme (e.g., 'example.com/path')"
               }
             },
             {
@@ -46213,7 +48132,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46444,7 +48366,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46551,7 +48476,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46722,7 +48650,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46830,7 +48761,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -46938,7 +48872,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47046,7 +48983,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47154,7 +49094,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47262,7 +49205,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47458,7 +49404,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47667,7 +49616,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -47831,7 +49783,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -48222,7 +50177,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -48542,7 +50500,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -48947,7 +50908,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -49533,7 +51497,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -50219,7 +52186,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -50352,10 +52322,24 @@ const Map<String, String> schemasData = {
   ],
   "$id": "https://nostrability.github.io/schemata/note/kind/10051.json"
 }''',
-  'kind443Schema': r'''{
+  'kind30443ContentSchema': r'''{
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "kind443",
-  "description": "Marmot KeyPackage event (MIP-00)",
+  "title": "kind30443Content",
+  "x-content-encoding": "base64",
+  "description": "Base64-encoded TLS-serialized MLS KeyPackageBundle (MIP-00). Decoded binary requires a TLS parser.",
+  "type": "string",
+  "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+  "minLength": 48,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must be valid base64",
+    "minLength": "content must be at least 48 base64 characters"
+  }
+}''',
+  'kind30443Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind30443",
+  "description": "Marmot KeyPackage addressable event (MIP-00). Canonical format replacing kind:443. Uses a d tag for relay-native KeyPackage rotation.",
   "allOf": [
     {
       "allOf": [
@@ -50390,7 +52374,567 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 30443,
+          "errorMessage": "kind must equal 30443",
+          "description": "Kind number reserved for addressable Marmot KeyPackage events"
+        },
+        "content": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+          "minLength": 48,
+          "errorMessage": "content must be a base64-encoded MLS KeyPackage bundle",
+          "description": "Base64-encoded TLS-serialized MLS KeyPackageBundle"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 8,
+          "errorMessage": {
+            "minItems": "tags must include at least 8 required MIP-00 tags"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "KeyPackage Identifier",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "d"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$",
+                            "description": "Cryptographically random 32-byte hex identifier for relay-native KeyPackage rotation"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "d tag must have exactly two elements: ['d', <hex-identifier>]",
+                          "maxItems": "d tag must have exactly two elements: ['d', <hex-identifier>]"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag with a 64-char hex identifier"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "mls_protocol_version"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[0-9]+(\\.[0-9]+)*$",
+                            "description": "MLS protocol version identifier"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_protocol_version tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MLS Ciphersuite",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "mls_ciphersuite"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^0x[0-9a-f]{4}$",
+                            "description": "MLS ciphersuite identifier in 0xXXXX format"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_ciphersuite tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MLS Extensions",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 3,
+                        "uniqueItems": true,
+                        "items": [
+                          {
+                            "const": "mls_extensions"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^0x[0-9a-f]{4}$",
+                            "description": "MLS extension identifier"
+                          }
+                        ],
+                        "additionalItems": {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-f]{4}$"
+                        },
+                        "allOf": [
+                          {
+                            "contains": {
+                              "const": "0xf2ee"
+                            },
+                            "errorMessage": {
+                              "contains": "mls_extensions must include 0xf2ee (marmot_group_data, MIP-01)"
+                            }
+                          },
+                          {
+                            "contains": {
+                              "const": "0x000a"
+                            },
+                            "errorMessage": {
+                              "contains": "mls_extensions must include 0x000a (last_resort, MIP-00)"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_extensions tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MLS Proposals",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "uniqueItems": true,
+                        "items": [
+                          {
+                            "const": "mls_proposals"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^0x[0-9a-f]{4}$",
+                            "description": "MLS proposal type identifier"
+                          }
+                        ],
+                        "additionalItems": {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-f]{4}$"
+                        },
+                        "allOf": [
+                          {
+                            "contains": {
+                              "const": "0x000a"
+                            },
+                            "errorMessage": {
+                              "contains": "mls_proposals must include 0x000a (self_remove)"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_proposals tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "relays"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
+                          }
+                        ],
+                        "additionalItems": {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "title": "relayUrl",
+                              "type": "string",
+                              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a relays tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "Encoding",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "encoding"
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "base64"
+                            ],
+                            "description": "Content encoding format"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an encoding tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "KeyPackageRef",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "i"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^(?:[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})$",
+                            "description": "Hex-encoded KeyPackageRef — length depends on ciphersuite hash (SHA-256: 64, SHA-384: 96, SHA-512: 128 hex chars)"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]",
+                          "maxItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an i tag"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/30443.json"
+}''',
+  'kind443ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind443Content",
+  "x-content-encoding": "base64",
+  "description": "Base64-encoded TLS-serialized MLS KeyPackageBundle (MIP-00). Decoded binary requires a TLS parser.",
+  "type": "string",
+  "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+  "minLength": 48,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must be valid base64",
+    "minLength": "content must be at least 48 base64 characters"
+  }
+}''',
+  'kind443Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind443",
+  "description": "Marmot KeyPackage event (MIP-00). DEPRECATED: being replaced by kind:30443 (addressable KeyPackage). Cutover scheduled May 1, 2026.",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "minimum": 0,
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -50816,8 +53360,8 @@ const Map<String, String> schemasData = {
                           },
                           {
                             "type": "string",
-                            "pattern": "^[a-f0-9]{64}$",
-                            "description": "Hex-encoded KeyPackageRef (SHA-256 hash of the KeyPackage)"
+                            "pattern": "^(?:[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})$",
+                            "description": "Hex-encoded KeyPackageRef — length depends on ciphersuite hash (SHA-256: 64, SHA-384: 96, SHA-512: 128 hex chars)"
                           }
                         ],
                         "additionalItems": false,
@@ -51464,7 +54008,10 @@ const Map<String, String> schemasData = {
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -51632,6 +54179,1152 @@ const Map<String, String> schemasData = {
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/h.json"
+}''',
+  'kind446ContentSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind446Content",
+  "x-content-encoding": "base64",
+  "description": "Base64-encoded concatenation of 280-byte EncryptedToken values (MIP-05). Decoded binary requires a protocol-specific parser.",
+  "type": "string",
+  "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+  "minLength": 376,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must be valid base64",
+    "minLength": "content must be at least 376 base64 characters (one 280-byte EncryptedToken)"
+  }
+}''',
+  'kind446Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind446",
+  "description": "Marmot Notification Request — triggers push notifications for group messages, delivered via NIP-59 gift-wrapping (MIP-05). This event is unsigned and uses an ephemeral pubkey.",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "kind",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 446,
+          "errorMessage": "kind must equal 446",
+          "description": "Kind number for Marmot Notification Request events"
+        },
+        "id": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Deterministic event hash as defined in NIP-01"
+        },
+        "pubkey": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Ephemeral public key (not sender identity)"
+        },
+        "content": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+          "minLength": 376,
+          "errorMessage": "content must be a base64-encoded concatenation of 280-byte EncryptedToken values (376 base64 chars per token)",
+          "description": "Base64-encoded concatenation of one or more 280-byte EncryptedToken values"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 2,
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MIP-05 Version",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "v"
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "mip05-v1"
+                            ],
+                            "description": "MIP-05 protocol version identifier"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "v tag must have exactly two elements: ['v', <version>]",
+                          "maxItems": "v tag must have exactly two elements: ['v', <version>]"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a v tag with protocol version"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "Encoding",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "encoding"
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "base64"
+                            ],
+                            "description": "Content encoding format"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an encoding tag"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "pubkey"
+      ]
+    },
+    {
+      "not": {
+        "required": [
+          "sig"
+        ]
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/446.json"
+}''',
+  'kind447Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind447",
+  "description": "Marmot Token Request — requests notification tokens from group members, sent as an MLS application message inside kind:445 Group Events (MIP-05). This event is unsigned.",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "kind",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 447,
+          "errorMessage": "kind must equal 447",
+          "description": "Kind number for Marmot Token Request events"
+        },
+        "id": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Deterministic event hash as defined in NIP-01"
+        },
+        "pubkey": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Sender public key matching MLS identity"
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 0,
+          "errorMessage": "content must be an empty string",
+          "description": "Empty string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 1,
+          "contains": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "title": "Notification Token",
+                "allOf": [
+                  {
+                    "allOf": [
+                      {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "uniqueItems": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "items": [
+                      {
+                        "const": "token"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+                        "minLength": 376,
+                        "maxLength": 376,
+                        "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$",
+                        "description": "Hex-encoded notification server public key"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                        "description": "Relay hint URL for the notification server"
+                      }
+                    ],
+                    "additionalItems": false,
+                    "errorMessage": {
+                      "minItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]",
+                      "maxItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "errorMessage": {
+            "contains": "tags must include at least one token tag"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "pubkey"
+      ]
+    },
+    {
+      "not": {
+        "required": [
+          "sig"
+        ]
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/447.json"
+}''',
+  'kind448Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind448",
+  "description": "Marmot Token List Response — responds to a kind:447 Token Request with notification tokens and MLS leaf indices, sent as an MLS application message inside kind:445 Group Events (MIP-05). This event is unsigned.",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "kind",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 448,
+          "errorMessage": "kind must equal 448",
+          "description": "Kind number for Marmot Token List Response events"
+        },
+        "id": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Deterministic event hash as defined in NIP-01"
+        },
+        "pubkey": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Sender public key matching MLS identity"
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 0,
+          "errorMessage": "content must be an empty string",
+          "description": "Empty string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 2,
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "Notification Token Response",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 5,
+                        "maxItems": 5,
+                        "items": [
+                          {
+                            "const": "token"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+                            "minLength": 376,
+                            "maxLength": 376,
+                            "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$",
+                            "description": "Hex-encoded notification server public key"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                            "description": "Relay hint URL for the notification server"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[0-9]+$",
+                            "description": "MLS leaf index (decimal string) of the device that owns this token"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]",
+                          "maxItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include at least one token tag with leaf index"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      }
+                    ],
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 5,
+                        "items": [
+                          {
+                            "const": "e"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          },
+                          {
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "reply",
+                              "root",
+                              "mention"
+                            ]
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          }
+                        ],
+                        "additionalItems": false
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 3,
+                        "items": [
+                          {
+                            "const": "e"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an e tag referencing the Token Request"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "pubkey"
+      ]
+    },
+    {
+      "not": {
+        "required": [
+          "sig"
+        ]
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/448.json"
+}''',
+  'kind449Schema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind449",
+  "description": "Marmot Token Removal — notifies group members to remove sender's notification tokens, sent as an MLS application message inside kind:445 Group Events (MIP-05). This event is unsigned. Leaf index is implicit from MLS sender identity.",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "kind",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 449,
+          "errorMessage": "kind must equal 449",
+          "description": "Kind number for Marmot Token Removal events"
+        },
+        "id": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Deterministic event hash as defined in NIP-01"
+        },
+        "pubkey": {
+          "allOf": [
+            {
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              ]
+            }
+          ],
+          "description": "Sender public key matching MLS identity"
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 0,
+          "errorMessage": "content must be an empty string",
+          "description": "Empty string"
+        },
+        "tags": {
+          "type": "array",
+          "maxItems": 0,
+          "errorMessage": {
+            "maxItems": "tags must be empty — leaf index is implicit from MLS sender identity"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "pubkey"
+      ]
+    },
+    {
+      "not": {
+        "required": [
+          "sig"
+        ]
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/449.json"
+}''',
+  'tokenTagSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Notification Token",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": [
+        {
+          "const": "token"
+        },
+        {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+          "minLength": 376,
+          "maxLength": 376,
+          "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Hex-encoded notification server public key"
+        },
+        {
+          "type": "string",
+          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+          "description": "Relay hint URL for the notification server"
+        }
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]",
+        "maxItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/token.json"
+}''',
+  'tokenresponseTagSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Notification Token Response",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": [
+        {
+          "const": "token"
+        },
+        {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+          "minLength": 376,
+          "maxLength": 376,
+          "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Hex-encoded notification server public key"
+        },
+        {
+          "type": "string",
+          "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+          "description": "Relay hint URL for the notification server"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "MLS leaf index (decimal string) of the device that owns this token"
+        }
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]",
+        "maxItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/token-response.json"
+}''',
+  'vTagSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MIP-05 Version",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": [
+        {
+          "const": "v"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "mip05-v1"
+          ],
+          "description": "MIP-05 protocol version identifier"
+        }
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "v tag must have exactly two elements: ['v', <version>]",
+        "maxItems": "v tag must have exactly two elements: ['v', <version>]"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/v.json"
+}''',
+  'channelmetadataSchema': r'''{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "channelMetadata",
+  "description": "Channel metadata object shared by kind:40 and kind:41 (NIP-28)",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Channel name"
+    },
+    "about": {
+      "type": "string",
+      "description": "Channel description"
+    },
+    "picture": {
+      "type": "string",
+      "format": "uri",
+      "description": "Channel picture URL"
+    },
+    "relays": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "relayUrl",
+            "type": "string",
+            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+          }
+        ]
+      },
+      "description": "Recommended relay URLs for the channel"
+    }
+  },
+  "additionalProperties": true
 }''',
   'messagefilterSchema': r'''{
   "allOf": [
@@ -51873,7 +55566,10 @@ const Map<String, String> schemasData = {
                   "description": "The id is a hash derived as specified in NIP-01"
                 },
                 "kind": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535,
+                  "errorMessage": "kind must be an integer between 0 and 65535"
                 },
                 "pubkey": {
                   "allOf": [
@@ -52421,6 +56117,48 @@ const Map<String, String> schemasData = {
     }
   ]
 }''',
+  'mip00dTagSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "KeyPackage Identifier",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "const": "d"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "Cryptographically random 32-byte hex identifier for relay-native KeyPackage rotation"
+            }
+          ],
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "d tag must have exactly two elements: ['d', <hex-identifier>]",
+            "maxItems": "d tag must have exactly two elements: ['d', <hex-identifier>]"
+          }
+        }
+      ]
+    }
+  ]
+}''',
   'mip00iTagSchema': r'''{
   "allOf": [
     {
@@ -52449,14 +56187,171 @@ const Map<String, String> schemasData = {
             },
             {
               "type": "string",
-              "pattern": "^[a-f0-9]{64}$",
-              "description": "Hex-encoded KeyPackageRef (SHA-256 hash of the KeyPackage)"
+              "pattern": "^(?:[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})$",
+              "description": "Hex-encoded KeyPackageRef — length depends on ciphersuite hash (SHA-256: 64, SHA-384: 96, SHA-512: 128 hex chars)"
             }
           ],
           "additionalItems": false,
           "errorMessage": {
             "minItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]",
             "maxItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]"
+          }
+        }
+      ]
+    }
+  ]
+}''',
+  'mip05tokenresponseTagSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Notification Token Response",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": [
+            {
+              "const": "token"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+              "minLength": 376,
+              "maxLength": 376,
+              "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "Hex-encoded notification server public key"
+            },
+            {
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "Relay hint URL for the notification server"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9]+$",
+              "description": "MLS leaf index (decimal string) of the device that owns this token"
+            }
+          ],
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]",
+            "maxItems": "token tag must have exactly 5 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>, <leaf-index>]"
+          }
+        }
+      ]
+    }
+  ]
+}''',
+  'mip05tokenTagSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Notification Token",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": [
+            {
+              "const": "token"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==)$",
+              "minLength": 376,
+              "maxLength": 376,
+              "description": "Base64-encoded encrypted notification token (exactly 280 bytes decoded, 376 base64 chars)"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "Hex-encoded notification server public key"
+            },
+            {
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "Relay hint URL for the notification server"
+            }
+          ],
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]",
+            "maxItems": "token tag must have exactly 4 elements: ['token', <encrypted-token>, <server-pubkey>, <relay-hint>]"
+          }
+        }
+      ]
+    }
+  ]
+}''',
+  'mip05vTagSchema': r'''{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "MIP-05 Version",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "const": "v"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "mip05-v1"
+              ],
+              "description": "MIP-05 protocol version identifier"
+            }
+          ],
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "v tag must have exactly two elements: ['v', <version>]",
+            "maxItems": "v tag must have exactly two elements: ['v', <version>]"
           }
         }
       ]
